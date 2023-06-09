@@ -2,7 +2,10 @@ package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.activitie
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.get
+import androidx.viewpager.widget.PagerAdapter
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Category
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.ActivityMainBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.adapters.MainPagerAdapter
 
@@ -28,5 +31,9 @@ class MainActivity : AppCompatActivity() {
                 this
             )
         binding.tabLayout.setupWithViewPager(binding.viewPager)
+    }
+
+    fun openMeals(category: Category?) {
+        binding.viewPager.setCurrentItem(MainPagerAdapter.FRAGMENT_2, false);
     }
 }

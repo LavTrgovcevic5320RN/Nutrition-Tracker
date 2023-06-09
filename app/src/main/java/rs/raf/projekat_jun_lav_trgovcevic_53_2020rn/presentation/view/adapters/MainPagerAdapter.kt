@@ -15,15 +15,17 @@ class MainPagerAdapter(
 ) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
-        private const val ITEM_COUNT = 2
+        private const val ITEM_COUNT = 3
         const val FRAGMENT_1 = 0
         const val FRAGMENT_2 = 1
+        const val FRAGMENT_3 = 2
+
     }
 
     override fun getItem(position: Int): Fragment {
         return when(position) {
             FRAGMENT_1 -> MealCategoryFragment()
-//            FRAGMENT_1 -> ListFragment()
+            FRAGMENT_2 -> InputFragment()
             else -> InputFragment()
         }
     }
@@ -34,8 +36,9 @@ class MainPagerAdapter(
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position) {
-            FRAGMENT_1 -> context.getString(R.string.movies)
-            else -> context.getString(R.string.input)
+            FRAGMENT_1 -> context.getString(R.string.categories)
+            FRAGMENT_2 -> context.getString(R.string.search)
+            else -> context.getString(R.string.meals)
         }
     }
 

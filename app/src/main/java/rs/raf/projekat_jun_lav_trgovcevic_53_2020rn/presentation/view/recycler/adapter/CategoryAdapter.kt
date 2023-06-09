@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Category
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.LayoutItemMovieBinding
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.activities.MainActivity
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.diff.CategoryDiffCallBack
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.diff.MovieDiffCallback
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.viewholder.CategoryViewHolder
+
 
 class CategoryAdapter : ListAdapter<Category, CategoryViewHolder>(CategoryDiffCallBack()) {
 
@@ -18,6 +19,14 @@ class CategoryAdapter : ListAdapter<Category, CategoryViewHolder>(CategoryDiffCa
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(getItem(position))
+        val category = getItem(position)
+
+        holder.itemView.setOnClickListener {
+            (holder.itemView.context as MainActivity).openMeals(category)
+        }
+
+
+
     }
 
 }
