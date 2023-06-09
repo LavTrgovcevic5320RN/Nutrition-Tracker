@@ -27,12 +27,13 @@ class CategoryRepositoryImpl(
 //                    )
 //                }
 //                for (entity in entities) {
-//                    Timber.d("Id: ${entity.idCategory}")
-//                    Timber.d("Category: ${entity.strCategory}")
-//                    Timber.d("Thumbnail: ${entity.strCategoryThumb}")
-//                    Timber.d("Description: ${entity.strCategoryDescription}")
+//                    Timber.e("Id: ${entity.idCategory}")
+//                    Timber.e("Category: ${entity.strCategory}")
+//                    Timber.e("Thumbnail: ${entity.strCategoryThumb}")
+//                    Timber.e("Description: ${entity.strCategoryDescription}")
 //                }
 //            }
+
         return remoteDataSourceCategory
             .getAll()
             .doOnNext {
