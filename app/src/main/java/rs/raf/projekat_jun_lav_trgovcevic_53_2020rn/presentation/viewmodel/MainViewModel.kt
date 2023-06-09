@@ -6,22 +6,24 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Category
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Movie
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Resource
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.repositories.CategoryRepository
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.repositories.MovieRepository
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.AddMovieState
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.MoviesState
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.CategoriesState
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class MainViewModel(
-    private val movieRepository: MovieRepository
+    private val categoryRepository: CategoryRepository,
 ) : ViewModel(), MainContract.ViewModel {
 
     private val subscriptions = CompositeDisposable()
-    override val moviesState: MutableLiveData<MoviesState> = MutableLiveData()
-    override val addDone: MutableLiveData<AddMovieState> = MutableLiveData()
+    override val categoriesState: MutableLiveData<CategoriesState> = MutableLiveData()
+//    override val addDone: MutableLiveData<AddMovieState> = MutableLiveData()
 
     private val publishSubject: PublishSubject<String> = PublishSubject.create()
 
@@ -30,7 +32,7 @@ class MainViewModel(
             .debounce(200, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
             .switchMap {
-                movieRepository
+                categoryRepository
                     .getAllByName(it)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -41,18 +43,18 @@ class MainViewModel(
             }
             .subscribe(
                 {
-                    moviesState.value = MoviesState.Success(it)
+                    categoriesState.value = CategoriesState.Success(it)
                 },
                 {
-                    moviesState.value = MoviesState.Error("Error happened while fetching data from db")
+                    categoriesState.value = CategoriesState.Error("Error happened while fetching data from db")
                     Timber.e(it)
                 }
             )
         subscriptions.add(subscription)
     }
 
-    override fun fetchAllMovies() {
-        val subscription = movieRepository
+    override fun fetchAllCategories() {
+        val subscription = categoryRepository
             .fetchAll()
             .startWith(Resource.Loading()) //Kada se pokrene fetch hocemo da postavimo stanje na Loading
             .subscribeOn(Schedulers.io())
@@ -60,56 +62,56 @@ class MainViewModel(
             .subscribe(
                 {
                     when(it) {
-                        is Resource.Loading -> moviesState.value = MoviesState.Loading
-                        is Resource.Success -> moviesState.value = MoviesState.DataFetched
-                        is Resource.Error -> moviesState.value = MoviesState.Error("Error happened while fetching data from the server")
+                        is Resource.Loading -> categoriesState.value = CategoriesState.Loading
+                        is Resource.Success -> categoriesState.value = CategoriesState.DataFetched
+                        is Resource.Error -> categoriesState.value = CategoriesState.Error("Error happened while fetching data from the server")
                     }
                 },
                 {
-                    moviesState.value = MoviesState.Error("Error happened while fetching data from the server")
+                    categoriesState.value = CategoriesState.Error("Error happened while fetching data from the server")
                     Timber.e(it)
                 }
             )
         subscriptions.add(subscription)
     }
 
-    override fun getAllMovies() {
-        val subscription = movieRepository
+    override fun getAllCategories() {
+        val subscription = categoryRepository
             .getAll()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    moviesState.value = MoviesState.Success(it)
+                    categoriesState.value = CategoriesState.Success(it)
                 },
                 {
-                    moviesState.value = MoviesState.Error("Error happened while fetching data from db")
+                    categoriesState.value = CategoriesState.Error("Error happened while fetching data from db")
                     Timber.e(it)
                 }
             )
         subscriptions.add(subscription)
     }
 
-    override fun getMoviesByName(name: String) {
+    override fun getCategoriesByName(name: String) {
         publishSubject.onNext(name)
     }
 
-    override fun addMovie(movie: Movie) {
-        val subscription = movieRepository
-            .insert(movie)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    addDone.value = AddMovieState.Success
-                },
-                {
-                    addDone.value = AddMovieState.Error("Error happened while adding movie")
-                    Timber.e(it)
-                }
-            )
-        subscriptions.add(subscription)
-    }
+//    override fun addCategorie(category: Category) {
+//        val subscription = categoryRepository
+//            .insert(category)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(
+//                {
+//                    addDone.value = AddMovieState.Success
+//                },
+//                {
+//                    addDone.value = AddMovieState.Error("Error happened while adding movie")
+//                    Timber.e(it)
+//                }
+//            )
+//        subscriptions.add(subscription)
+//    }
 
     override fun onCleared() {
         super.onCleared()

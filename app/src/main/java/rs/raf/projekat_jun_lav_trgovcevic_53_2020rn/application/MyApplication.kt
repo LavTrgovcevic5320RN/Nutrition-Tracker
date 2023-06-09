@@ -7,7 +7,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.fragment.koin.fragmentFactory
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.modules.movieModule
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.modules.category_module
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.modules.coreModule
 import timber.log.Timber
 
@@ -30,7 +30,7 @@ class MyApplication : Application() {
     private fun initKoin() {
         val modules = listOf(
             coreModule,
-            movieModule
+            category_module
         )
         startKoin {
             androidLogger(Level.ERROR)

@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.InputFragment
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.ListFragment
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.MealCategoryFragment
 
 class MainPagerAdapter(
     fragmentManager: FragmentManager,
@@ -21,7 +22,8 @@ class MainPagerAdapter(
 
     override fun getItem(position: Int): Fragment {
         return when(position) {
-            FRAGMENT_1 -> ListFragment()
+            FRAGMENT_1 -> MealCategoryFragment()
+//            FRAGMENT_1 -> ListFragment()
             else -> InputFragment()
         }
     }
