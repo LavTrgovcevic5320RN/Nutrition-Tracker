@@ -1,21 +1,31 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract
 
 import androidx.lifecycle.LiveData
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Movie
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.AddMovieState
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.AddUserState
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.CategoriesState
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.MealsState
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.UsersState
 
 interface MainContract {
 
     interface ViewModel {
 
         val categoriesState: LiveData<CategoriesState>
-//        val addDone: LiveData<AddMovieState>
+        val usersState: LiveData<UsersState>
+        val mealsState: LiveData<MealsState>
+        val addDone: LiveData<AddUserState>
 
         fun fetchAllCategories()
         fun getAllCategories()
         fun getCategoriesByName(name: String)
-//        fun addCategorie(movie: Movie)
+
+        fun getAllUsers()
+        fun getUsersByName(name: String)
+
+        fun fetchAllMeals()
+        fun getAllMeals()
+//        fun getUserByName(name: String) : User
+//        fun addUser(user: User)
     }
 
 }

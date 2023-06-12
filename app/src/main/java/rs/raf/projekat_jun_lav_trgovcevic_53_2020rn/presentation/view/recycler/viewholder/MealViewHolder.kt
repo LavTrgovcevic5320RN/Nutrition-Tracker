@@ -2,32 +2,30 @@ package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.
 
 import android.app.AlertDialog
 import android.content.Context
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Category
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.LayoutItemMovieBinding
-import timber.log.Timber
 
-class CategoryViewHolder(private val itemBinding: LayoutItemMovieBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+class MealViewHolder(private val itemBinding: LayoutItemMovieBinding) : RecyclerView.ViewHolder(itemBinding.root) {
 
-    fun bind(category: Category) {
-        itemBinding.titleTv.text = category.name
+    fun bind(meal: Meal) {
+        itemBinding.titleTv.text = meal.name
         Picasso
             .get()
-            .load(category.image)
+            .load(meal.image)
             .into(itemBinding.mealImage);
 
 
         itemBinding.moreInfo.setOnClickListener {
-            showDialog(itemBinding.root.context, category)
+            showDialog(itemBinding.root.context, meal)
         }
     }
 
-    private fun showDialog(context: Context, category: Category) {
+    private fun showDialog(context: Context, meal: Meal) {
         val dialog = AlertDialog.Builder(context)
-            .setTitle(category.name)
-            .setMessage(category.description)
+            .setTitle(meal.name)
+            .setMessage(meal.name)
             .setPositiveButton("U redu") { dialog, _ ->
                 dialog.dismiss()
             }

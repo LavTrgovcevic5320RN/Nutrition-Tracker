@@ -6,4 +6,5 @@
     <string name="add">Add</string>
     <string name="categories">Categories</string>
     <string name="meals">Meals</string>
+    <string name="search_meals">Search Meals</string>
 </resources>

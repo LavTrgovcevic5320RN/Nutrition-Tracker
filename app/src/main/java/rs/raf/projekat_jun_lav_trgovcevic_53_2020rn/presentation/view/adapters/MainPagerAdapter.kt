@@ -8,6 +8,7 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.InputFragment
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.ListFragment
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.MealCategoryFragment
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.SearchMealsFragment
 
 class MainPagerAdapter(
     fragmentManager: FragmentManager,
@@ -25,7 +26,7 @@ class MainPagerAdapter(
     override fun getItem(position: Int): Fragment {
         return when(position) {
             FRAGMENT_1 -> MealCategoryFragment()
-            FRAGMENT_2 -> InputFragment()
+            FRAGMENT_2 -> SearchMealsFragment()
             else -> InputFragment()
         }
     }
@@ -37,7 +38,7 @@ class MainPagerAdapter(
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position) {
             FRAGMENT_1 -> context.getString(R.string.categories)
-            FRAGMENT_2 -> context.getString(R.string.search)
+            FRAGMENT_2 -> context.getString(R.string.search_meals)
             else -> context.getString(R.string.meals)
         }
     }

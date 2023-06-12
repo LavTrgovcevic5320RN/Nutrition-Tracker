@@ -4,6 +4,7 @@ import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.CategoryResponseList
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.MealResponseList
 
 interface CategoryService {
 

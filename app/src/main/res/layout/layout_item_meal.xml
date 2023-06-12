@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/titleTv"
+        android:id="@+id/mealNameTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
@@ -28,15 +28,15 @@
         app:srcCompat="@drawable/splash_picture"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/moreInfo"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="28dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.513"
-        app:srcCompat="@drawable/more_info" />
+<!--    <ImageView-->
+<!--        android:id="@+id/moreInfo"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginEnd="28dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.513"-->
+<!--        app:srcCompat="@drawable/more_info" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

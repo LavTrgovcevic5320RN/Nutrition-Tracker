@@ -1,4 +1,4 @@
-package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.modules
+package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.modules
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -15,7 +15,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.BuildConfig
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.local.CategoryDataBase
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.local.MealDataBase
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.local.MovieDataBase
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.local.UserDataBase
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -26,6 +28,14 @@ val coreModule = module {
     }
 
     single { Room.databaseBuilder(androidContext(), CategoryDataBase::class.java, "CategoryDb")
+        .fallbackToDestructiveMigration()
+        .build() }
+
+    single { Room.databaseBuilder(androidContext(), UserDataBase::class.java, "UserDb")
+        .fallbackToDestructiveMigration()
+        .build() }
+
+    single { Room.databaseBuilder(androidContext(), MealDataBase::class.java, "MealDb")
         .fallbackToDestructiveMigration()
         .build() }
 

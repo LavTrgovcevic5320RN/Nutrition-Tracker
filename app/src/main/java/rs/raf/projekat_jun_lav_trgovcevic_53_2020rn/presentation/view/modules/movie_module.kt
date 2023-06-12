@@ -1,4 +1,4 @@
-package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.modules
+package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.modules
 
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

@@ -6,6 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.view.activities.SplashActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
     <ImageView
         android:id="@+id/splash_image"
         android:layout_width="350dp"

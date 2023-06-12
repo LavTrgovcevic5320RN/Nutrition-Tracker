@@ -59,7 +59,7 @@ class InputFragment : Fragment(R.layout.fragment_input) {
 //            val movieToAdd = Movie(
 //                id = java.lang.Long.toHexString(temp.mostSignificantBits)
 //                        + java.lang.Long.toHexString(temp.leastSignificantBits),
-//                title = input
+//                name = input
 //            )
 //            mainViewModel.addMovie(movieToAdd)
 //        }

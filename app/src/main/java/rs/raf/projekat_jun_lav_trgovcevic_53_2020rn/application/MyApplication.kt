@@ -7,8 +7,8 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.fragment.koin.fragmentFactory
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.modules.category_module
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.modules.coreModule
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.modules.category_module
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.modules.coreModule
 import timber.log.Timber
 
 class MyApplication : Application() {

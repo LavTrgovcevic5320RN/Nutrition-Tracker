@@ -1,5 +1,6 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.activities
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.get
@@ -33,7 +34,11 @@ class MainActivity : AppCompatActivity() {
         binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 
-    fun openMeals(category: Category?) {
+    fun openMeals(category: Category) {
         binding.viewPager.setCurrentItem(MainPagerAdapter.FRAGMENT_2, false);
+        val sharedPreferences = getSharedPreferences("category", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("category", category.name)
+        editor.apply()
     }
 }

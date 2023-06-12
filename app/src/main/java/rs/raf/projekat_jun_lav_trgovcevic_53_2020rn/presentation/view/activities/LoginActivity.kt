@@ -7,9 +7,24 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import org.koin.androidx.viewmodel.compat.SharedViewModelCompat.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentMealCategoryBinding
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.CategoriesState
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.UsersState
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel.MainViewModel
+import timber.log.Timber
 
 class LoginActivity : AppCompatActivity() {
+    private var _binding: FragmentMealCategoryBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
@@ -25,6 +40,8 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
+
+
 
             if (password.length >= 4) {
                 startMainActivity()
@@ -46,6 +63,11 @@ class LoginActivity : AppCompatActivity() {
         val editor = sharedPreferences.edit()
         editor.putBoolean("isLoggedIn", true)
         editor.apply()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }
