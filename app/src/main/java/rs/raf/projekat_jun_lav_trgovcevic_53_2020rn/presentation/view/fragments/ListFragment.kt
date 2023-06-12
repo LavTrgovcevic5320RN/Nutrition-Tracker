@@ -1,23 +1,7 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentListBinding
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.adapter.MovieAdapter
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.CategoriesState
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel.MainViewModel
-import timber.log.Timber
 
 class ListFragment : Fragment(R.layout.fragment_list) {
 

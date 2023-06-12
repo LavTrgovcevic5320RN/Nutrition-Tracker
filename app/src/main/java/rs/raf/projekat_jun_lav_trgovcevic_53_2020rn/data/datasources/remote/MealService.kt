@@ -11,5 +11,5 @@ interface MealService {
 //    fun fetchAllMealsByCategoryName(@Query("c") name: String): Observable<MealResponseList>
 
     @GET("search.php")
-    fun fetchAllMealsByFirstLetter(@Query("f") firstLetter: String, @Query("limit") limit: Int = 1000): Observable<MealResponseList>
+    fun fetchAllMealsByFirstLetter(@Query("f") firstLetter: String): Observable<MealResponseList>
 }

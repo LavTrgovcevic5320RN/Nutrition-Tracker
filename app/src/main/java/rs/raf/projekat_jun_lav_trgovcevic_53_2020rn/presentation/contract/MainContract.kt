@@ -24,8 +24,10 @@ interface MainContract {
 
         fun fetchAllMeals()
         fun getAllMeals()
-//        fun getUserByName(name: String) : User
-//        fun addUser(user: User)
+//        fun getAllMealsFilterByCategory()
+//        fun getAllMealsFilterByArea()
+//        fun getAllMealsFilterByIngredient()
+
     }
 
 }

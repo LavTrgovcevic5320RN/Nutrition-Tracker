@@ -1,20 +1,7 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Movie
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentInputBinding
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.AddMovieState
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel.MainViewModel
-import java.util.*
 
 class InputFragment : Fragment(R.layout.fragment_input) {
 
