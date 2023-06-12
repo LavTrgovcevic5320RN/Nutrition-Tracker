@@ -97,7 +97,7 @@ class CategoryRepositoryImpl(
                             meal.dateModified
                         )
                     }
-                    localDataSourceMeal.deleteAndInsertAll(entities)
+                    localDataSourceMeal.insertAll(entities).blockingAwait()
                 }
                 .map {
                     Resource.Success(Unit)
@@ -106,7 +106,6 @@ class CategoryRepositoryImpl(
 
         return Observable.concat(observables)
     }
-
 
     override fun getAllMeals(): Observable<List<Meal>> {
         return localDataSourceMeal

@@ -7,7 +7,7 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.MealEntity
 
 @Database(
     entities = [MealEntity::class],
-    version = 5,
+    version = 11,
     exportSchema = false)
 @TypeConverters()
 abstract class MealDataBase : RoomDatabase() {
