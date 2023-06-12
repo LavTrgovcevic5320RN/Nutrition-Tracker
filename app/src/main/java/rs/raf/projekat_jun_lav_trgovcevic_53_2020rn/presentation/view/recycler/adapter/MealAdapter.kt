@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.LayoutItemMealBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.LayoutItemMovieBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.diff.MealDiffCallBack
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.viewholder.CategoryViewHolder
@@ -12,7 +13,7 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.v
 class MealAdapter : ListAdapter<Meal, MealViewHolder>(MealDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
-        val itemBinding = LayoutItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemBinding = LayoutItemMealBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MealViewHolder(itemBinding)
     }
 

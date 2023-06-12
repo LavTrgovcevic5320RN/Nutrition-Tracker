@@ -32,4 +32,7 @@ abstract class MealDao {
 
     @Query("SELECT * FROM meals WHERE name LIKE :name || '%'")
     abstract fun getByName(name: String): Observable<List<MealEntity>>
+
+    @Query("SELECT * FROM meals WHERE category LIKE :category || '%'")
+    abstract fun getAllMealsFilterByCategory(category: String): Observable<List<MealEntity>>
 }

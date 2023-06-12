@@ -15,4 +15,5 @@ interface CategoryRepository {
 
     fun fetchAllMeals(): Observable<Resource<Unit>>
     fun getAllMeals(): Observable<List<Meal>>
+    fun getAllMealsFilterByCategory(category: String): Observable<List<Meal>>
 }

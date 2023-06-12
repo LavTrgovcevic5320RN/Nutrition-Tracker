@@ -1,6 +1,5 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -175,22 +174,22 @@ class MainViewModel(
         subscriptions.add(subscription)
     }
 
-//    override fun getAllMealsFilterByCategory(){
-//        val subscription = categoryRepository
-//            .getAllMealsFilterByCategory()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(
-//                {
-//                    mealsState.value = MealsState.Success(it)
-//                },
-//                {
-//                    mealsState.value = MealsState.Error("Error happened while fetching data from db")
-//                    Timber.e(it)
-//                }
-//            )
-//        subscriptions.add(subscription)
-//    }
+    override fun getAllMealsFilterByCategory(category: String){
+        val subscription = categoryRepository
+            .getAllMealsFilterByCategory(category)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    mealsState.value = MealsState.Success(it)
+                },
+                {
+                    mealsState.value = MealsState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
 //    override fun getAllMealsFilterByArea(){
 //        val subscription = categoryRepository
 //            .getAllMealsFilterByArea()

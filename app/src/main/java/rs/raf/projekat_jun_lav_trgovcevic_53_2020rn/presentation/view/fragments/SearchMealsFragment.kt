@@ -46,9 +46,6 @@ class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
         initObservers()
         var sharedPref : SharedPreferences = activity!!.getPreferences(Context.MODE_PRIVATE)
         val categoryName = sharedPref.getString("category", "ne postoji")
-        mainViewModel.fetchAllMeals()
-//        mainViewModel.getAllMealsByCategoryName(categoryName.toString())
-
     }
 
     private fun initUi() {
@@ -65,7 +62,7 @@ class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
     private fun initListeners() {
         binding.inputMealEt.doAfterTextChanged {
             val filter = it.toString()
-//            mainViewModel.getAllMealsByCategoryName(filter)
+            mainViewModel.getAllMealsFilterByCategory(filter)
         }
     }
 
@@ -74,8 +71,8 @@ class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
             Timber.e(it.toString())
             renderState(it)
         })
-        mainViewModel.getAllCategories()
-        mainViewModel.fetchAllCategories()
+        mainViewModel.fetchAllMeals()
+        mainViewModel.getAllMeals()
     }
 
     private fun renderState(state: MealsState) {
