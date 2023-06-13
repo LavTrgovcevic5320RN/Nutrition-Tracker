@@ -26,10 +26,11 @@ interface MainContract {
         fun getAllMeals()
         fun getAllMealsFilterByCategory(category: String)
         fun getAllMealsFilterByArea(area: String)
-        fun getAllMealsFilterByIngredient(ingredient: String)
+        fun getAllMealsByIngredient(ingredient: String)
+        fun getAllMealsByName(name: String)
 
 //        fun getAllMealsFilterByArea()
-//        fun getAllMealsFilterByIngredient()
+//        fun getAllMealsByIngredient()
 
     }
 

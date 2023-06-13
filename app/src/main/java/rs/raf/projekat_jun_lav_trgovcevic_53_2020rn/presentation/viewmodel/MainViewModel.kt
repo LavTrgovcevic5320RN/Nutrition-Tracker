@@ -206,9 +206,26 @@ class MainViewModel(
             )
         subscriptions.add(subscription)
     }
-    override fun getAllMealsFilterByIngredient(ingredient: String){
+    override fun getAllMealsByIngredient(ingredient: String){
         val subscription = categoryRepository
-            .getAllMealsFilterByIngredient(ingredient)
+            .getAllMealsByIngredient(ingredient)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    mealsState.value = MealsState.Success(it)
+                },
+                {
+                    mealsState.value = MealsState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+    override fun getAllMealsByName(name: String){
+        val subscription = categoryRepository
+            .getAllMealsByName(name)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

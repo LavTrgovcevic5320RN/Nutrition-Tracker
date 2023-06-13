@@ -202,9 +202,41 @@ class CategoryRepositoryImpl(
             }
     }
 
-    override fun getAllMealsFilterByIngredient(ingredient: String): Observable<List<Meal>> {
+    override fun getAllMealsByIngredient(ingredient: String): Observable<List<Meal>> {
         return localDataSourceMeal
-            .getAllMealsFilterByIngredient(ingredient)
+            .getAllMealsByIngredient(ingredient)
+            .map {
+                it.map {
+                    Meal(
+                        it.id,
+                        it.name,
+                        it.drink.toString(),
+                        it.category,
+                        it.area,
+                        it.instructions,
+                        it.image,
+                        it.tags.toString(),
+                        it.youtube.toString(),
+                        it.ingredient1.toString(), it.ingredient2.toString(), it.ingredient3.toString(), it.ingredient4.toString(), it.ingredient5.toString(),
+                        it.ingredient6.toString(), it.ingredient7.toString(), it.ingredient8.toString(), it.ingredient9.toString(), it.ingredient10.toString(),
+                        it.ingredient11.toString(), it.ingredient12.toString(), it.ingredient13.toString(), it.ingredient14.toString(), it.ingredient15.toString(),
+                        it.ingredient16.toString(), it.ingredient17.toString(), it.ingredient18.toString(), it.ingredient19.toString(), it.ingredient20.toString(),
+                        it.measure1.toString(), it.measure2.toString(), it.measure3.toString(), it.measure4.toString(), it.measure5.toString(),
+                        it.measure6.toString(), it.measure7.toString(), it.measure8.toString(), it.measure9.toString(), it.measure10.toString(),
+                        it.measure11.toString(), it.measure12.toString(), it.measure13.toString(), it.measure14.toString(), it.measure15.toString(),
+                        it.measure16.toString(), it.measure17.toString(), it.measure18.toString(), it.measure19.toString(), it.measure20.toString(),
+                        it.source.toString(),
+                        it.imageSource.toString(),
+                        it.creativeCommonsConfirmed.toString(),
+                        it.dateModified.toString()
+                    )
+                }
+            }
+    }
+
+    override fun getAllMealsByName(name: String): Observable<List<Meal>> {
+        return localDataSourceMeal
+            .getAllMealsByName(name)
             .map {
                 it.map {
                     Meal(

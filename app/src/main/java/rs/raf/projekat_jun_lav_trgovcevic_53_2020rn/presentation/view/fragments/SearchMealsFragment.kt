@@ -73,7 +73,7 @@ class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
                     mainViewModel.getAllMealsFilterByArea(filter)
                     Log.d("Main", it.toString())
                 }else if(vrsta == "Ingredient"){
-                    mainViewModel.getAllMealsFilterByIngredient(filter)
+                    mainViewModel.getAllMealsByIngredient(filter)
                     Log.d("Main", it.toString())
                 }
             }

@@ -39,6 +39,22 @@
             app:toggle_selectedBackgroundColor="#009688"
             app:toggle_text="Ingredient" />
 
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnFilterByName"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_margin="5dp"
+            app:toggle_selectedBackgroundColor="#794860"
+            app:toggle_text="Name" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnFilterByTags"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_margin="5dp"
+            app:toggle_selectedBackgroundColor="#FF5722"
+            app:toggle_text="Tags" />
+
     </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 
 
@@ -60,7 +76,7 @@
         android:layout_below="@id/inputMealEt"
         app:flexWrap="wrap"
         app:justifyContent="space_between"
-        app:toggle_requiredAmount="1"
+        app:toggle_requiredAmount="0"
         app:toggle_selectAnimation="circular_reveal"
         app:toggle_selectableAmount="1">
 
@@ -71,22 +87,6 @@
             android:layout_margin="5dp"
             app:toggle_selectedBackgroundColor="#E91E63"
             app:toggle_text="Sort" />
-
-        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-            android:id="@+id/btnFilterByName"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_margin="5dp"
-            app:toggle_selectedBackgroundColor="#794860"
-            app:toggle_text="FilterByName" />
-
-        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-            android:id="@+id/btnFilterByTags"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_margin="5dp"
-            app:toggle_selectedBackgroundColor="#FF5722"
-            app:toggle_text="FilterByTags" />
 
     </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 
