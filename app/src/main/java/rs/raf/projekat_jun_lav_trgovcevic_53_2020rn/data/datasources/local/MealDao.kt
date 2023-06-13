@@ -35,4 +35,11 @@ abstract class MealDao {
 
     @Query("SELECT * FROM meals WHERE category LIKE :category || '%'")
     abstract fun getAllMealsFilterByCategory(category: String): Observable<List<MealEntity>>
+
+    @Query("SELECT * FROM meals WHERE area LIKE :area || '%'")
+    abstract fun getAllMealsFilterByArea(area: String): Observable<List<MealEntity>>
+
+    @Query("SELECT * FROM meals WHERE ingredient1 LIKE :ingredient || '%' OR ingredient2 LIKE :ingredient || '%' OR ingredient3 LIKE :ingredient || '%' OR ingredient4 LIKE :ingredient || '%' OR ingredient5 LIKE :ingredient || '%' OR ingredient6 LIKE :ingredient || '%' OR ingredient7 LIKE :ingredient || '%' OR ingredient8 LIKE :ingredient || '%' OR ingredient9 LIKE :ingredient || '%' OR ingredient10 LIKE :ingredient || '%' OR ingredient11 LIKE :ingredient || '%' OR ingredient12 LIKE :ingredient || '%' OR ingredient13 LIKE :ingredient || '%' OR ingredient14 LIKE :ingredient || '%' OR ingredient15 LIKE :ingredient || '%' OR ingredient16 LIKE :ingredient || '%' OR ingredient17 LIKE :ingredient || '%' OR ingredient18 LIKE :ingredient || '%' OR ingredient19 LIKE :ingredient || '%'  OR ingredient20 LIKE :ingredient || '%'")
+    abstract fun getAllMealsFilterByIngredient(ingredient: String): Observable<List<MealEntity>>
+
 }

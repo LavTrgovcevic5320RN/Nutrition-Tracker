@@ -27,4 +27,5 @@ class MealAdapter : ListAdapter<Meal, MealViewHolder>(MealDiffCallBack()) {
 
     }
 
+
 }

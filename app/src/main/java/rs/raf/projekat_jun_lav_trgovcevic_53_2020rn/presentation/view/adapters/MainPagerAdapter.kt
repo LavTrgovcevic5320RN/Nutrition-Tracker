@@ -38,8 +38,8 @@ class MainPagerAdapter(
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position) {
             FRAGMENT_1 -> context.getString(R.string.categories)
-            FRAGMENT_2 -> context.getString(R.string.search_meals)
-            else -> context.getString(R.string.meals)
+            FRAGMENT_2 -> context.getString(R.string.meals)
+            else -> context.getString(R.string.meal)
         }
     }
 

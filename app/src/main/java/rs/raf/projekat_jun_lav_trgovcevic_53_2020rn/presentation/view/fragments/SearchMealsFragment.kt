@@ -3,6 +3,7 @@ package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,10 +61,40 @@ class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
     }
 
     private fun initListeners() {
-        binding.inputMealEt.doAfterTextChanged {
-            val filter = it.toString()
-            mainViewModel.getAllMealsFilterByCategory(filter)
+        binding.timeButtonGroup1.setOnSelectListener {
+            val vrsta = it.text
+            Log.d("Main", vrsta)
+
+            binding.inputMealEt.doAfterTextChanged {
+                val filter = it.toString()
+                if(vrsta == "Category"){
+                    mainViewModel.getAllMealsFilterByCategory(filter)
+                }else if(vrsta == "Area"){
+                    mainViewModel.getAllMealsFilterByArea(filter)
+                    Log.d("Main", it.toString())
+                }else if(vrsta == "Ingredient"){
+                    mainViewModel.getAllMealsFilterByIngredient(filter)
+                    Log.d("Main", it.toString())
+                }
+            }
         }
+
+//        binding.timeButtonGroup2.setOnSelectListener {
+//            Log.d("Main", it.text)
+//        }
+//
+//        binding.btnCategory.setOnClickListener {
+//
+//            val text = binding.timeButtonGroup1.selectedButtons
+//            val fruitList = mutableListOf<String>()
+//
+//            for (fruit in text) {
+//                fruitList.add(fruit.text)
+//            }
+//
+//            Log.d("Main", text.toString())
+////            Toast.makeText(context, "You selected $fruitList", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     private fun initObservers() {

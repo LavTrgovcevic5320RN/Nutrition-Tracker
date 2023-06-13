@@ -190,38 +190,38 @@ class MainViewModel(
             )
         subscriptions.add(subscription)
     }
-//    override fun getAllMealsFilterByArea(){
-//        val subscription = categoryRepository
-//            .getAllMealsFilterByArea()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(
-//                {
-//                    mealsState.value = MealsState.Success(it)
-//                },
-//                {
-//                    mealsState.value = MealsState.Error("Error happened while fetching data from db")
-//                    Timber.e(it)
-//                }
-//            )
-//        subscriptions.add(subscription)
-//    }
-//    override fun getAllMealsFilterByIngredient(){
-//        val subscription = categoryRepository
-//            .getAllMealsFilterByIngredient()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(
-//                {
-//                    mealsState.value = MealsState.Success(it)
-//                },
-//                {
-//                    mealsState.value = MealsState.Error("Error happened while fetching data from db")
-//                    Timber.e(it)
-//                }
-//            )
-//        subscriptions.add(subscription)
-//    }
+    override fun getAllMealsFilterByArea(area: String){
+        val subscription = categoryRepository
+            .getAllMealsFilterByArea(area)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    mealsState.value = MealsState.Success(it)
+                },
+                {
+                    mealsState.value = MealsState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+    override fun getAllMealsFilterByIngredient(ingredient: String){
+        val subscription = categoryRepository
+            .getAllMealsFilterByIngredient(ingredient)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    mealsState.value = MealsState.Success(it)
+                },
+                {
+                    mealsState.value = MealsState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
 
     override fun onCleared() {
         super.onCleared()
