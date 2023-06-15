@@ -19,5 +19,5 @@ interface CategoryRepository {
     fun getAllMealsFilterByArea(area: String): Observable<List<Meal>>
     fun getAllMealsByIngredient(ingredient: String): Observable<List<Meal>>
     fun getAllMealsByName(name: String): Observable<List<Meal>>
-
+    fun getAllMealsByPage(page: String): Observable<List<Meal>>
 }

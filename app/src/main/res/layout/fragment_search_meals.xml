@@ -5,39 +5,36 @@
     android:layout_height="match_parent"
     tools:context=".presentation.view.activities.MainActivity">
 
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerMealInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_meal" />
+
+    <EditText
+        android:id="@+id/inputMealEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
     <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
         android:id="@+id/time_button_group1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/inputMealEt"
         app:flexWrap="wrap"
-        app:justifyContent="space_between"
+        app:justifyContent="flex_start"
         app:toggle_requiredAmount="1"
         app:toggle_selectAnimation="circular_reveal"
         app:toggle_selectableAmount="1">
-
-        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-            android:id="@+id/btnCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_margin="5dp"
-            app:toggle_selectedBackgroundColor="#4CAF50"
-            app:toggle_text="Category" />
-
-        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-            android:id="@+id/btnArea"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_margin="5dp"
-            app:toggle_selectedBackgroundColor="#673AB7"
-            app:toggle_text="Area" />
-
-        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-            android:id="@+id/btnIngredient"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_margin="5dp"
-            app:toggle_selectedBackgroundColor="#009688"
-            app:toggle_text="Ingredient" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnFilterByName"
@@ -48,45 +45,12 @@
             app:toggle_text="Name" />
 
         <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-            android:id="@+id/btnFilterByTags"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_margin="5dp"
-            app:toggle_selectedBackgroundColor="#FF5722"
-            app:toggle_text="Tags" />
-
-    </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
-
-
-
-    <EditText
-        android:id="@+id/inputMealEt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/time_button_group1"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
-
-
-
-    <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
-        android:id="@+id/time_button_group2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/inputMealEt"
-        app:flexWrap="wrap"
-        app:justifyContent="space_between"
-        app:toggle_requiredAmount="0"
-        app:toggle_selectAnimation="circular_reveal"
-        app:toggle_selectableAmount="1">
-
-        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
             android:id="@+id/btnSort"
             android:layout_width="wrap_content"
             android:layout_height="38dp"
             android:layout_margin="5dp"
-            app:toggle_selectedBackgroundColor="#E91E63"
-            app:toggle_text="Sort" />
+            app:toggle_selectedBackgroundColor="#009688"
+            app:toggle_text="Ingredient" />
 
     </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 
@@ -94,14 +58,14 @@
         android:id="@+id/listMealRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/time_button_group2"
+        android:layout_below="@id/time_button_group1"
         android:layout_marginTop="16dp"
         android:clipToPadding="false"
         android:paddingTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/time_button_group2" />
+        app:layout_constraintTop_toBottomOf="@id/time_button_group1" />
 
     <ProgressBar
         android:id="@+id/loadingMealPb"

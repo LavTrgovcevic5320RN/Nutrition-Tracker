@@ -1,6 +1,7 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract
 
 import androidx.lifecycle.LiveData
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.AddUserState
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.CategoriesState
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.MealsState
@@ -14,6 +15,7 @@ interface MainContract {
         val usersState: LiveData<UsersState>
         val mealsState: LiveData<MealsState>
         val addDone: LiveData<AddUserState>
+        var selectedMeal : Meal
 
         fun fetchAllCategories()
         fun getAllCategories()

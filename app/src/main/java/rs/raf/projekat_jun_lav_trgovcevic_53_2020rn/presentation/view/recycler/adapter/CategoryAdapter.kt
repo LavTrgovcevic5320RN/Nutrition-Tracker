@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Category
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.LayoutItemMovieBinding
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.LayoutItemCategoryBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.activities.MainActivity
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.diff.CategoryDiffCallBack
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.viewholder.CategoryViewHolder
@@ -13,7 +13,7 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.v
 class CategoryAdapter : ListAdapter<Category, CategoryViewHolder>(CategoryDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val itemBinding = LayoutItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemBinding = LayoutItemCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CategoryViewHolder(itemBinding)
     }
 

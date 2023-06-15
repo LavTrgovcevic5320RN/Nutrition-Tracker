@@ -2,14 +2,12 @@ package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.
 
 import android.app.AlertDialog
 import android.content.Context
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Category
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.LayoutItemMovieBinding
-import timber.log.Timber
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.LayoutItemCategoryBinding
 
-class CategoryViewHolder(private val itemBinding: LayoutItemMovieBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+class CategoryViewHolder(private val itemBinding: LayoutItemCategoryBinding) : RecyclerView.ViewHolder(itemBinding.root) {
 
     fun bind(category: Category) {
         itemBinding.titleTv.text = category.name

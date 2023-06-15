@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentSearchMealsBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.adapter.MealAdapter
@@ -56,45 +57,26 @@ class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
 
     private fun initRecycler() {
         binding.listMealRv.layoutManager = LinearLayoutManager(context)
-        adapter = MealAdapter()
+        adapter = MealAdapter(this)
         binding.listMealRv.adapter = adapter
     }
 
     private fun initListeners() {
         binding.timeButtonGroup1.setOnSelectListener {
             val vrsta = it.text
-            Log.d("Main", vrsta)
+//            Log.d("Main", vrsta)
 
             binding.inputMealEt.doAfterTextChanged {
                 val filter = it.toString()
-                if(vrsta == "Category"){
-                    mainViewModel.getAllMealsFilterByCategory(filter)
-                }else if(vrsta == "Area"){
-                    mainViewModel.getAllMealsFilterByArea(filter)
-                    Log.d("Main", it.toString())
+                if(vrsta == "Name"){
+                    mainViewModel.getAllMealsByName(filter)
+
                 }else if(vrsta == "Ingredient"){
                     mainViewModel.getAllMealsByIngredient(filter)
-                    Log.d("Main", it.toString())
                 }
+                Log.d("Main", it.toString())
             }
         }
-
-//        binding.timeButtonGroup2.setOnSelectListener {
-//            Log.d("Main", it.text)
-//        }
-//
-//        binding.btnCategory.setOnClickListener {
-//
-//            val text = binding.timeButtonGroup1.selectedButtons
-//            val fruitList = mutableListOf<String>()
-//
-//            for (fruit in text) {
-//                fruitList.add(fruit.text)
-//            }
-//
-//            Log.d("Main", text.toString())
-////            Toast.makeText(context, "You selected $fruitList", Toast.LENGTH_SHORT).show()
-//        }
     }
 
     private fun initObservers() {
@@ -111,6 +93,7 @@ class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
             is MealsState.Success -> {
                 showLoadingState(false)
                 adapter.submitList(state.meals)
+//                adapter.
             }
             is MealsState.Error -> {
                 showLoadingState(false)
@@ -130,6 +113,10 @@ class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
         binding.inputMealEt.isVisible = !loading
         binding.listMealRv.isVisible = !loading
         binding.loadingMealPb.isVisible = loading
+    }
+
+    fun setSelectedMeal(meal: Meal){
+        mainViewModel.selectedMeal = meal;
     }
 
     override fun onDestroyView() {

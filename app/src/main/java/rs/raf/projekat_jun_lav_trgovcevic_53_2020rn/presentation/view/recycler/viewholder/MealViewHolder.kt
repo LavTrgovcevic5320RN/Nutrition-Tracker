@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.LayoutItemMealBinding
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.LayoutItemMovieBinding
 
 class MealViewHolder(private val itemBinding: LayoutItemMealBinding) : RecyclerView.ViewHolder(itemBinding.root) {
 
@@ -16,23 +15,5 @@ class MealViewHolder(private val itemBinding: LayoutItemMealBinding) : RecyclerV
             .get()
             .load(meal.image)
             .into(itemBinding.mealImage);
-
-
-//        itemBinding.moreInfo.setOnClickListener {
-//            showDialog(itemBinding.root.context, meal)
-//        }
     }
-
-    private fun showDialog(context: Context, meal: Meal) {
-        val dialog = AlertDialog.Builder(context)
-            .setTitle(meal.name)
-            .setMessage(meal.name)
-            .setPositiveButton("U redu") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .create()
-
-        dialog.show()
-    }
-
 }
