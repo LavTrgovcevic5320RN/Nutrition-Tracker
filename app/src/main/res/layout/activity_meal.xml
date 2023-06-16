@@ -29,29 +29,30 @@
                 android:id="@+id/tvMealName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
+                android:layout_gravity="center"
                 android:layout_marginTop="16dp" />
 
             <TextView
                 android:id="@+id/tvCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:layout_marginTop="16dp" />
 
             <TextView
                 android:id="@+id/tvArea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:layout_marginTop="16dp" />
 
             <TextView
                 android:id="@+id/tvInstructions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:layout_marginTop="16dp" />
@@ -60,21 +61,21 @@
                 android:id="@+id/tvTags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:layout_marginTop="16dp" />
 
             <TextView
                 android:id="@+id/tvVideoLink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:layout_marginTop="16dp" />
 
             <TextView
                 android:id="@+id/tvIngredientsAndMeasures"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:layout_marginTop="16dp" />
@@ -84,13 +85,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save Meal"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="80dp" />
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
 
