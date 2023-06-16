@@ -22,7 +22,7 @@ class CategoryAdapter : ListAdapter<Category, CategoryViewHolder>(CategoryDiffCa
         val category = getItem(position)
 
         holder.itemView.setOnClickListener {
-            (holder.itemView.context as MainActivity).openMeals(category)
+//            (holder.itemView.context as MainActivity).openMeals(category)
         }
 
 

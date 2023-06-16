@@ -81,6 +81,10 @@ class MealCategoryFragment : Fragment(R.layout.fragment_meal_category)  {
         // bice sacuvani u bazi, tada ce se triggerovati observable na koji smo se pretplatili
         // preko metode getAllMovies()
         mainViewModel.fetchAllCategories()
+
+        mainViewModel.getAllMeals()
+        mainViewModel.fetchAllMeals()
+
     }
 
     private fun renderState(state: CategoriesState) {

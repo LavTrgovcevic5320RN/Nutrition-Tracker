@@ -2,20 +2,20 @@ package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentMealBinding
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentMealsBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel.MainViewModel
 
-class MealFragment: Fragment(R.layout.fragment_meal) {
+class MealsFragment : Fragment(R.layout.fragment_meals) {
     private val mainViewModel: MainContract.ViewModel by sharedViewModel<MainViewModel>()
-    private var _binding: FragmentMealBinding? = null
+    private var _binding: FragmentMealsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -23,7 +23,7 @@ class MealFragment: Fragment(R.layout.fragment_meal) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMealBinding.inflate(inflater, container, false)
+        _binding = FragmentMealsBinding.inflate(inflater, container, false)
         return binding.root
     }
 

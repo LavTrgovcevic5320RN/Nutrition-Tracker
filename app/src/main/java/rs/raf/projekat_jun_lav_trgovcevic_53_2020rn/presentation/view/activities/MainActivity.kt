@@ -3,12 +3,10 @@ package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.activitie
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.get
-import androidx.viewpager.widget.PagerAdapter
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Category
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.ActivityMainBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.adapters.MainPagerAdapter
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,4 +39,11 @@ class MainActivity : AppCompatActivity() {
         editor.putString("category", category.name)
         editor.apply()
     }
+
+    fun openMeal() {
+        Timber.e("Otvara detaljan pregled za jelo")
+//        supportFragmentManager.beginTransaction().add(R.id.meal_layout, MealsFragment()).commit()
+    }
+
+
 }

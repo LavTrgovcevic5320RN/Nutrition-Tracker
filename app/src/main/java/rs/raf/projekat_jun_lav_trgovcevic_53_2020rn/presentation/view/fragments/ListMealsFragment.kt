@@ -4,13 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -18,12 +18,13 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentSearchMealsBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.activities.MainActivity
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.adapter.MealAdapter
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.MealsState
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel.MainViewModel
 import timber.log.Timber
 
-class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
+class ListMealsFragment : Fragment(R.layout.fragment_list_meals) {
     private val mainViewModel: MainContract.ViewModel by sharedViewModel<MainViewModel>()
     private var _binding: FragmentSearchMealsBinding? = null
     private val binding get() = _binding!!
@@ -53,11 +54,12 @@ class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
     private fun initUi() {
         initRecycler()
         initListeners()
+
     }
 
     private fun initRecycler() {
         binding.listMealRv.layoutManager = LinearLayoutManager(context)
-//        adapter = MealAdapter(this)
+        adapter = MealAdapter(this)
         binding.listMealRv.adapter = adapter
     }
 
@@ -84,8 +86,6 @@ class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
             Timber.e(it.toString())
             renderState(it)
         })
-        mainViewModel.fetchAllMeals()
-        mainViewModel.getAllMeals()
     }
 
     private fun renderState(state: MealsState) {
@@ -93,7 +93,6 @@ class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
             is MealsState.Success -> {
                 showLoadingState(false)
                 adapter.submitList(state.meals)
-//                adapter.
             }
             is MealsState.Error -> {
                 showLoadingState(false)

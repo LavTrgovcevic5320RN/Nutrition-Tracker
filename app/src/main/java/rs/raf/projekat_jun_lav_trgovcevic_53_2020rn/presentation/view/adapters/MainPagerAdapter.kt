@@ -5,15 +5,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.InputFragment
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.ListFragment
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.MealCategoryFragment
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.SearchMealsFragment
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.*
 
 class MainPagerAdapter(
     fragmentManager: FragmentManager,
     private val context: Context
-) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_SET_USER_VISIBLE_HINT) {
 
     companion object {
         private const val ITEM_COUNT = 3
@@ -26,8 +23,8 @@ class MainPagerAdapter(
     override fun getItem(position: Int): Fragment {
         return when(position) {
             FRAGMENT_1 -> MealCategoryFragment()
-            FRAGMENT_2 -> SearchMealsFragment()
-            else -> InputFragment()
+            FRAGMENT_2 -> ListMealsFragment()
+            else -> ListMealsFragment()
         }
     }
 

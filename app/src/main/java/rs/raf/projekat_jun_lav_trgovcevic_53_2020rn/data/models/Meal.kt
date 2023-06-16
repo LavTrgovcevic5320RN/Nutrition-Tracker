@@ -1,5 +1,9 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Meal(
     val id: String,
     val name: String,
@@ -54,4 +58,4 @@ data class Meal(
     val imageSource: String,
     val creativeCommonsConfirmed: String,
     val dateModified: String
-)
+) : Parcelable
