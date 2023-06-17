@@ -1,6 +1,7 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.activities
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
@@ -50,7 +51,7 @@ class MealActivity : AppCompatActivity(R.layout.activity_meal) {
         findViewById<TextView>(R.id.tvMealName).text = mainViewModel.selectedMeal.name
         findViewById<TextView>(R.id.tvCategory).text = "Category:   " + mainViewModel.selectedMeal.category
         findViewById<TextView>(R.id.tvArea).text = "Area:   " +  mainViewModel.selectedMeal.area
-        findViewById<TextView>(R.id.tvInstructions).text = mainViewModel.selectedMeal.instructions
+        findViewById<TextView>(R.id.tvInstructions).text =  "Instructions:\n\n" +  mainViewModel.selectedMeal.instructions
 
         if(mainViewModel.selectedMeal.tags != "null" && mainViewModel.selectedMeal.tags.isNotEmpty())
             findViewById<TextView>(R.id.tvTags).text = "Tags:   " + mainViewModel.selectedMeal.tags
@@ -130,7 +131,10 @@ class MealActivity : AppCompatActivity(R.layout.activity_meal) {
 
     private fun initListeners() {
         saveMealButton.setOnClickListener{
-
+            val intent = Intent(this, SaveMealActivity::class.java)
+//            intent.putExtra("selectedMeal", meal)
+            startActivity(intent)
+            finish()
         }
     }
 

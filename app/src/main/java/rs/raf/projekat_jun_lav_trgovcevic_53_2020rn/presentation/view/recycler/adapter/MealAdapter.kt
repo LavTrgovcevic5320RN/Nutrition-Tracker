@@ -32,7 +32,6 @@ class MealAdapter(private val fragment: ListMealsFragment) : ListAdapter<Meal, M
             Timber.d(meal.name)
             fragment.setSelectedMeal(meal)
 
-            val int = Intent()
             val intent = Intent(fragment.context, MealActivity::class.java)
             intent.putExtra("selectedMeal", meal)
             fragment.context?.startActivity(intent)

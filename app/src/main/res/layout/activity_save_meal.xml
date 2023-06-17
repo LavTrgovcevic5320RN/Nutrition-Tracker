@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="10dp">
+
+    <ImageView
+        android:id="@+id/mealImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/default_meal_image" />
+
+    <TextView
+        android:id="@+id/mealNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:textSize="26sp" />
+
+    <TextView
+        android:id="@+id/selectedDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:textSize="22sp" />
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+        android:id="@+id/ToggleButtonGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inputMealEt"
+        app:flexWrap="wrap"
+        app:justifyContent="space_evenly"
+        app:toggle_requiredAmount="1"
+        app:toggle_selectAnimation="circular_reveal"
+        app:toggle_selectableAmount="1">
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/toggleButtonBreakfast"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_margin="5dp"
+            app:toggle_selectedBackgroundColor="#794860"
+            app:toggle_text="Breakfast" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/toggleButtonLunch"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_margin="5dp"
+            app:toggle_selectedBackgroundColor="#006188"
+            app:toggle_text="Lunch" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/toggleButtonSnack"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_margin="5dp"
+            app:toggle_selectedBackgroundColor="#FF9800"
+            app:toggle_text="Snack" />
+
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/toggleButtonDinner"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_margin="5dp"
+            app:toggle_selectedBackgroundColor="#8BC34A"
+            app:toggle_text="Dinner" />
+
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="60dp"
+        android:text="Sačuvaj jelo" />
+
+</LinearLayout>
