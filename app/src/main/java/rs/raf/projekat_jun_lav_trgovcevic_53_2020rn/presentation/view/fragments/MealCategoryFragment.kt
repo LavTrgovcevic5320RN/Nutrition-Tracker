@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Category
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentMealCategoryBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.adapter.CategoryAdapter
@@ -20,13 +22,8 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel.MainV
 import timber.log.Timber
 
 class MealCategoryFragment : Fragment(R.layout.fragment_meal_category)  {
-
-    // Koristimo by sharedViewModel jer sada view modele instanciramo kroz koin
     private val mainViewModel: MainContract.ViewModel by sharedViewModel<MainViewModel>()
-
     private var _binding: FragmentMealCategoryBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     private lateinit var adapter: CategoryAdapter
@@ -57,7 +54,7 @@ class MealCategoryFragment : Fragment(R.layout.fragment_meal_category)  {
 
     private fun initRecycler() {
         binding.listRv.layoutManager = LinearLayoutManager(context)
-        adapter = CategoryAdapter()
+        adapter = CategoryAdapter(this)
         binding.listRv.adapter = adapter
     }
 
@@ -73,18 +70,8 @@ class MealCategoryFragment : Fragment(R.layout.fragment_meal_category)  {
             Timber.e(it.toString())
             renderState(it)
         })
-        // Pravimo subscription kad observablu koji je vezan za getAll iz baze
-        // Na svaku promenu tabele, obserrvable ce emitovati na onNext sve elemente
-        // koji zadovoljavaju query
         mainViewModel.getAllCategories()
-        // Pokrecemo operaciju dovlacenja podataka sa servera, kada podaci stignu,
-        // bice sacuvani u bazi, tada ce se triggerovati observable na koji smo se pretplatili
-        // preko metode getAllMovies()
         mainViewModel.fetchAllCategories()
-
-        mainViewModel.getAllMeals()
-        mainViewModel.fetchAllMeals()
-
     }
 
     private fun renderState(state: CategoriesState) {
@@ -111,6 +98,10 @@ class MealCategoryFragment : Fragment(R.layout.fragment_meal_category)  {
         binding.inputEt.isVisible = !loading
         binding.listRv.isVisible = !loading
         binding.loadingPb.isVisible = loading
+    }
+
+    fun setSelectedCategory(category: Category){
+        mainViewModel.selectedCategory = category;
     }
 
     override fun onDestroyView() {
