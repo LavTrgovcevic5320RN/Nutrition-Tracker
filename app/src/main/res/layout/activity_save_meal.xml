@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:src="@drawable/default_meal_image" />
 
     <TextView
@@ -21,13 +22,14 @@
         android:layout_margin="10dp"
         android:textSize="26sp" />
 
-    <TextView
-        android:id="@+id/selectedDateTextView"
+    <DatePicker
+        android:id="@+id/datePicker1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
-        android:textSize="22sp" />
+        android:calendarViewShown="false"
+        android:layout_margin="10dp"
+        android:datePickerMode="spinner"/>
 
     <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
         android:id="@+id/ToggleButtonGroup"
@@ -80,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="60dp"
-        android:text="Sačuvaj jelo" />
+        android:layout_margin="20dp"
+        android:text="Save meal" />
 
 </LinearLayout>

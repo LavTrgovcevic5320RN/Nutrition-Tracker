@@ -23,14 +23,14 @@ class FilterMealsActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        val bundle :Bundle ?=intent.extras
-        bundle?.apply {
-            //Parcelable Data
-            val meal: Meal? = getParcelable("selectedMeal")
-            if (meal != null) {
-                mainViewModel.selectedMeal = meal
-            }
-        }
+//        val bundle :Bundle ?=intent.extras
+//        bundle?.apply {
+//            //Parcelable Data
+//            val meal: Meal? = getSerializable("meal")
+//            if (meal != null) {
+//                mainViewModel.selectedMeal = meal
+//            }
+//        }
         initUi()
         initListeners()
     }

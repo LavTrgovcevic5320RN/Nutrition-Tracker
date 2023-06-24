@@ -39,13 +39,13 @@ abstract class MealDao {
     @Query("SELECT * FROM meals WHERE area LIKE :area || '%'")
     abstract fun getAllMealsFilterByArea(area: String): Observable<List<MealEntity>>
 
-    @Query("SELECT * FROM meals WHERE ingredient1 LIKE :ingredient || '%' OR ingredient2 LIKE :ingredient || '%' OR ingredient3 LIKE :ingredient || '%' OR ingredient4 LIKE :ingredient || '%' OR ingredient5 LIKE :ingredient || '%' OR ingredient6 LIKE :ingredient || '%' OR ingredient7 LIKE :ingredient || '%' OR ingredient8 LIKE :ingredient || '%' OR ingredient9 LIKE :ingredient || '%' OR ingredient10 LIKE :ingredient || '%' OR ingredient11 LIKE :ingredient || '%' OR ingredient12 LIKE :ingredient || '%' OR ingredient13 LIKE :ingredient || '%' OR ingredient14 LIKE :ingredient || '%' OR ingredient15 LIKE :ingredient || '%' OR ingredient16 LIKE :ingredient || '%' OR ingredient17 LIKE :ingredient || '%' OR ingredient18 LIKE :ingredient || '%' OR ingredient19 LIKE :ingredient || '%'  OR ingredient20 LIKE :ingredient || '%'")
+    @Query("SELECT * FROM meals WHERE ingredients LIKE '%' || :ingredient || '%'")
     abstract fun getAllMealsByIngredient(ingredient: String): Observable<List<MealEntity>>
 
     @Query("SELECT * FROM meals WHERE name LIKE :name || '%'")
     abstract fun getAllMealsByName(name: String): Observable<List<MealEntity>>
 
-    @Query("SELECT * FROM meals ORDER BY name LIMIT 20 OFFSET (:page - 1) * 20")
+    @Query("SELECT * FROM meals ORDER BY name LIMIT 10 OFFSET (:page - 1) * 10")
     abstract fun getAllMealsByPage(page: String): Observable<List<MealEntity>>
 
 

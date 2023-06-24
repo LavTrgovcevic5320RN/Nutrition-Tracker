@@ -1,15 +1,11 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments
 
-import android.animation.Animator
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.animation.Animation
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -18,26 +14,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentSearchMealsBinding
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentListMealsBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.activities.MainActivity
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.adapter.MealAdapter
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.adapter.SavedMealAdapter
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.MealsState
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel.MainViewModel
 import timber.log.Timber
 
 class ListMealsFragment : Fragment(R.layout.fragment_list_meals) {
     private val mainViewModel: MainContract.ViewModel by sharedViewModel<MainViewModel>()
-    private var _binding: FragmentSearchMealsBinding? = null
+    private var _binding: FragmentListMealsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: MealAdapter
+    private lateinit var mealAdapter: MealAdapter
+    private lateinit var savedMealAdapter: SavedMealAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSearchMealsBinding.inflate(inflater, container, false)
+        _binding = FragmentListMealsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -60,18 +57,17 @@ class ListMealsFragment : Fragment(R.layout.fragment_list_meals) {
 
     private fun initRecycler() {
         binding.listMealRv.layoutManager = LinearLayoutManager(context)
-        adapter = MealAdapter(this)
-        binding.listMealRv.adapter = adapter
+        mealAdapter = MealAdapter(this)
+        binding.listMealRv.adapter = mealAdapter
     }
 
-    override fun onStart() {
-        mainViewModel.getAllMealsFilterByCategory(mainViewModel.selectedCategory.name)
-//        mainViewModel.getAllMeals()
-//        mainViewModel.fetchAllMeals()
-        Timber.e("Categorija 25:" + mainViewModel.selectedCategory.name)
-        super.onStart()
-    }
-
+//    override fun onStart() {
+//        Timber.e("USAOOOOOOOOOOOOOOOOOOOO  " + mainViewModel.selectedMeal.name)
+////        mainViewModel.getAllMealsFilterByCategory(mainViewModel.selectedCategory.name)
+//
+//        Timber.e("Categorija 25:" + mainViewModel.selectedCategory.name)
+//        super.onStart()
+//    }
 
     private fun initListeners() {
         binding.timeButtonGroup1.setOnSelectListener {
@@ -81,12 +77,24 @@ class ListMealsFragment : Fragment(R.layout.fragment_list_meals) {
             binding.inputMealEt.doAfterTextChanged {
                 val filter = it.toString()
                 if(vrsta == "Name"){
-                    mainViewModel.getAllMealsByName(filter)
-
+//                    mealAdapter = MealAdapter(this)
+//                    binding.listMealRv.adapter = mealAdapter
+//                    mainViewModel.getAllMealsByName(filter)
+//                    mealAdapter.currentList.filter { meal: Meal? ->
+//                        meal!!.name.contains(filter, ignoreCase = true)
+//                    }
+//                    mealAdapter.notifyDataSetChanged()
                 }else if(vrsta == "Ingredient"){
+//                    mealAdapter = MealAdapter(this)
+//                    binding.listMealRv.adapter = mealAdapter
+//                    mainViewModel.filterKeyword = filter
                     mainViewModel.getAllMealsByIngredient(filter)
+                }else if(vrsta == "My Meals"){
+//                    val adapter = SavedMealAdapter()
+//                    binding.listMealRv.adapter = adapter
+//                    mainViewModel.getAllSavedMealsByName(filter)
                 }
-                Log.d("Main", it.toString())
+//                Log.d("Main", it.toString())
             }
         }
     }
@@ -96,13 +104,21 @@ class ListMealsFragment : Fragment(R.layout.fragment_list_meals) {
             Timber.e(it.toString())
             renderState(it)
         })
+
+        mainViewModel.getAllMeals()
+        mainViewModel.fetchAllMeals()
+
+        mainViewModel.saveMealState.observe(viewLifecycleOwner, Observer {
+            Timber.e(it.toString())
+
+        })
     }
 
     private fun renderState(state: MealsState) {
         when (state) {
             is MealsState.Success -> {
                 showLoadingState(false)
-                adapter.submitList(state.meals)
+                mealAdapter.submitList(state.meals)
             }
             is MealsState.Error -> {
                 showLoadingState(false)

@@ -16,6 +16,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.BuildConfig
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.local.CategoryDataBase
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.local.MealDataBase
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.local.SavedMealDatabase
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.local.UserDataBase
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -35,6 +36,10 @@ val coreModule = module {
         .build() }
 
     single { Room.databaseBuilder(androidContext(), MealDataBase::class.java, "MealDb")
+        .fallbackToDestructiveMigration()
+        .build() }
+
+    single { Room.databaseBuilder(androidContext(), SavedMealDatabase::class.java, "SavedMealDb")
         .fallbackToDestructiveMigration()
         .build() }
 

@@ -1,0 +1,59 @@
+package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentInfoBinding
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel.MainViewModel
+import timber.log.Timber
+
+class InfoFragment : Fragment(R.layout.fragment_info) {
+    private val mainViewModel: MainContract.ViewModel by sharedViewModel<MainViewModel>()
+    private var _binding: FragmentInfoBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentInfoBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
+    private fun init() {
+        initUi()
+
+    }
+
+    private fun initUi() {
+        binding.savedMealsImgView.setOnClickListener{
+            Timber.e("Usao u saved meals")
+//            val intent = Intent(context, ProfileActivity::class.java)
+//            startActivity(intent)
+        }
+
+        binding.mealPlanImgView.setOnClickListener{
+            Timber.e("Usao u meal plan")
+        }
+
+        binding.StatisticsImgView.setOnClickListener{
+            Timber.e("Usao u statistics")
+        }
+
+        binding.profileImgView.setOnClickListener{
+            Timber.e("Usao u profile")
+        }
+    }
+}

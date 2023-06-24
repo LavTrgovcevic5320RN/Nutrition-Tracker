@@ -33,9 +33,16 @@ class MealAdapter(private val fragment: ListMealsFragment) : ListAdapter<Meal, M
             fragment.setSelectedMeal(meal)
 
             val intent = Intent(fragment.context, MealActivity::class.java)
-            intent.putExtra("selectedMeal", meal)
+            intent.putExtra("meal", meal)
             fragment.context?.startActivity(intent)
         }
     }
+
+//    fun filter(query: String) {
+//        currentList.filter { item ->
+//            item.contains(query, ignoreCase = true)
+//        }
+//        notifyDataSetChanged()
+//    }
 
 }

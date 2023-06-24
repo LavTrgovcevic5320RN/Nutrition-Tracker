@@ -2,14 +2,12 @@ package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Category
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Resource
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.User
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.*
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.repositories.CategoryRepository
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.repositories.UserRepository
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
@@ -22,15 +20,32 @@ class MainViewModel(
     private val userRepository: UserRepository,
 ) : ViewModel(), MainContract.ViewModel {
 
-    override var selectedMeal: Meal = Meal("52768","Apple Frangipan Tart","null","Dessert","British","Preheat the oven to 200C/180C Fan/Gas 6.\r\nPut the biscuits in a large re-sealable freezer bag and bash with a rolling pin into fine crumbs. Melt the butter in a small pan, then add the biscuit crumbs and stir until coated with butter. Tip into the tart tin and, using the back of a spoon, press over the base and sides of the tin to give an even layer. Chill in the fridge while you make the filling.\r\nCream together the butter and sugar until light and fluffy. You can do this in a food processor if you have one. Process for 2-3 minutes. Mix in the eggs, then add the ground almonds and almond extract and blend until well combined.\r\nPeel the apples, and cut thin slices of apple. Do this at the last minute to prevent the apple going brown. Arrange the slices over the biscuit base. Spread the frangipane filling evenly on top. Level the surface and sprinkle with the flaked almonds.\r\nBake for 20-25 minutes until golden-brown and set.\r\nRemove from the oven and leave to cool for 15 minutes. Remove the sides of the tin. An easy way to do this is to stand the tin on a can of beans and push down gently on the edges of the tin.\r\nTransfer the tart, with the tin base attached, to a serving plate. Serve warm with cream, cr\u00e8me fraiche or ice cream.", "https://www.themealdb.com/images/media/meals/wxywrq1468235067.jpg","Tart,Baking,Fruity","https://www.youtube.com/watch?v=rp8Slv4INLk", "digestive biscuits","butter","Bramley apples","butter, softened","caster sugar","free-range eggs, beaten","ground almonds","almond extract","flaked almonds","","","","","","","","","","","175g/6oz","75g/3oz","200g/7oz","75g/3oz","75g/3oz","2","75g/3oz","1 tsp","50g/1\u00beoz","","","","","","","","","","","","","null","null","null","null")
+    override var selectedMeal: Meal = Meal(
+        "52768",
+        "Apple Frangipan Tart",
+        "null",
+        "Dessert",
+        "British",
+        "Preheat the oven to 200C/180C Fan/Gas 6.\r\nPut the biscuits in a large re-sealable freezer bag and bash with a rolling pin into fine crumbs. Melt the butter in a small pan, then add the biscuit crumbs and stir until coated with butter. Tip into the tart tin and, using the back of a spoon, press over the base and sides of the tin to give an even layer. Chill in the fridge while you make the filling.\r\nCream together the butter and sugar until light and fluffy. You can do this in a food processor if you have one. Process for 2-3 minutes. Mix in the eggs, then add the ground almonds and almond extract and blend until well combined.\r\nPeel the apples, and cut thin slices of apple. Do this at the last minute to prevent the apple going brown. Arrange the slices over the biscuit base. Spread the frangipane filling evenly on top. Level the surface and sprinkle with the flaked almonds.\r\nBake for 20-25 minutes until golden-brown and set.\r\nRemove from the oven and leave to cool for 15 minutes. Remove the sides of the tin. An easy way to do this is to stand the tin on a can of beans and push down gently on the edges of the tin.\r\nTransfer the tart, with the tin base attached, to a serving plate. Serve warm with cream, cr\u00e8me fraiche or ice cream.",
+        "https://www.themealdb.com/images/media/meals/wxywrq1468235067.jpg",
+        "Tart,Baking,Fruity",
+        "https://www.youtube.com/watch?v=rp8Slv4INLk", listOf(), listOf(),
+        "null",
+        "null",
+        "null",
+        "null"
+    )
     override var selectedCategory: Category = Category("1", "Beef", "https://www.themealdb.com/images/category/beef.png", "Beef is the culinary name for meat from cattle, particularly skeletal muscle. Humans have been eating beef since prehistoric times.[1] Beef is a source of high-quality protein and essential nutrients.[2]")
 
     private val subscriptions = CompositeDisposable()
     override val categoriesState: MutableLiveData<CategoriesState> = MutableLiveData()
     override val usersState: MutableLiveData<UsersState> = MutableLiveData()
     override val mealsState: MutableLiveData<MealsState> = MutableLiveData()
+    override val saveMealState: MutableLiveData<SaveMealState> = MutableLiveData()
     override val addDone: MutableLiveData<AddUserState> = MutableLiveData()
     private val publishSubject: PublishSubject<String> = PublishSubject.create()
+    private val publishSubjectMeal: PublishSubject<String> = PublishSubject.create()
+
 
     init {
         val subscription1 = publishSubject
@@ -42,7 +57,7 @@ class MainViewModel(
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError {
-                        Timber.e("Error in publish subject")
+                        Timber.e("Error in publish category subject")
                         Timber.e(it)
                     }
             }
@@ -51,14 +66,36 @@ class MainViewModel(
                     categoriesState.value = CategoriesState.Success(it)
                 },
                 {
-                    categoriesState.value = CategoriesState.Error("Error happened while fetching data from db")
+                    categoriesState.value = CategoriesState.Error("Error happened while fetching data from db category")
+                    Timber.e(it)
+                }
+            )
+
+        val subscription2 = publishSubjectMeal
+            .debounce(200, TimeUnit.MILLISECONDS)
+            .distinctUntilChanged()
+            .switchMap {
+                categoryRepository
+                    .getAllMealsByIngredient(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnError {
+                        Timber.e("Error in publish Meal subject")
+                        Timber.e(it)
+                    }
+            }
+            .subscribe(
+                {
+                    mealsState.value = MealsState.Success(it)
+                },
+                {
+                    mealsState.value = MealsState.Error("Error happened while fetching data from db meal")
                     Timber.e(it)
                 }
             )
 
         val user = User("1", "lavina", "lavina")
-
-        val subscription2 = userRepository
+        val subscription3 = userRepository
             .insert(user)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -74,6 +111,7 @@ class MainViewModel(
 
         subscriptions.add(subscription1)
         subscriptions.add(subscription2)
+        subscriptions.add(subscription3)
     }
 
     override fun fetchAllCategories() {
@@ -211,21 +249,46 @@ class MainViewModel(
             )
         subscriptions.add(subscription)
     }
+
+//    override lateinit var filterKeyword: String
+
+//    override fun getAllMealsByIngredient(ingredient: String){
+//        val subscription = Single.just(mealsState.value)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(
+//                { fetchedMealsState ->
+//                    val fetchedMeals = fetchedMealsState as? MealsState.Success
+//                    if (fetchedMeals != null) {
+//                        val filteredFetchedMeals = if (filterKeyword != null && filterKeyword!!.isNotBlank()) {
+//                            fetchedMeals.meals.filter { meal ->
+//                                meal.ingredients.any { mealIngredient ->
+//                                    mealIngredient != null && mealIngredient.isNotBlank() && mealIngredient.contains(filterKeyword!!, ignoreCase = true)
+//                                }
+//                            }
+//                        } else {
+//                            fetchedMeals.meals // No filter applied
+//                        }
+//
+//                        for (i in filteredFetchedMeals) {
+//                            Timber.e("Jelo: $i")
+//                        }
+//
+//                        mealsState.value = MealsState.Success(filteredFetchedMeals)
+//                    } else {
+//                        mealsState.value = fetchedMealsState
+//                    }
+//                },
+//                {
+//                    mealsState.value = MealsState.Error("Error happened while fetching data from db")
+//                    Timber.e(it)
+//                }
+//            )
+//        subscriptions.add(subscription)
+//    }
+
     override fun getAllMealsByIngredient(ingredient: String){
-        val subscription = categoryRepository
-            .getAllMealsByIngredient(ingredient)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    mealsState.value = MealsState.Success(it)
-                },
-                {
-                    mealsState.value = MealsState.Error("Error happened while fetching data from db")
-                    Timber.e(it)
-                }
-            )
-        subscriptions.add(subscription)
+        publishSubjectMeal.onNext(ingredient)
     }
 
     override fun getAllMealsByName(name: String){
@@ -244,6 +307,58 @@ class MainViewModel(
             )
         subscriptions.add(subscription)
     }
+
+    override fun getAllSavedMeals() {
+        val subscription = categoryRepository
+            .getSavedMeals()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    saveMealState.value = SaveMealState.Success(it)
+                },
+                {
+                    saveMealState.value = SaveMealState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+    override fun addSavedMeal(mealToSave: SavedMeal) {
+        val subscription = categoryRepository
+            .insertSavedMeal(mealToSave)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    saveMealState.value = SaveMealState.SuccessfullySaved
+                },
+                {
+                    saveMealState.value = SaveMealState.Error("Error happened while adding movie")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
+    override fun getAllSavedMealsByName(name: String) {
+        val subscription = categoryRepository
+            .getAllSavedMealsByName(name)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    saveMealState.value = SaveMealState.Success(it)
+                },
+                {
+                    saveMealState.value = SaveMealState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
 
     override fun onCleared() {
         super.onCleared()

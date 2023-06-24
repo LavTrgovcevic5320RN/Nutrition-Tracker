@@ -24,7 +24,7 @@ class MainPagerAdapter(
         return when(position) {
             FRAGMENT_1 -> MealCategoryFragment()
             FRAGMENT_2 -> ListMealsFragment()
-            else -> ListMealsFragment()
+            else -> InfoFragment()
         }
     }
 
@@ -36,7 +36,7 @@ class MainPagerAdapter(
         return when(position) {
             FRAGMENT_1 -> context.getString(R.string.categories)
             FRAGMENT_2 -> context.getString(R.string.meals)
-            else -> context.getString(R.string.meal)
+            else -> context.getString(R.string.info)
         }
     }
 

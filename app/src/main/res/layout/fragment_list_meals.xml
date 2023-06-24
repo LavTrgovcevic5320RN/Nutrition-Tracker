@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/inputMealEt"
         app:flexWrap="wrap"
-        app:justifyContent="flex_start"
+        app:justifyContent="space_evenly"
         app:toggle_requiredAmount="1"
         app:toggle_selectAnimation="circular_reveal"
         app:toggle_selectableAmount="1">
@@ -46,6 +46,14 @@
             android:layout_margin="5dp"
             app:toggle_selectedBackgroundColor="#009688"
             app:toggle_text="Ingredient" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btnMyMealsFilterByName"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_margin="5dp"
+            app:toggle_selectedBackgroundColor="#FF9800"
+            app:toggle_text="My Meals" />
 
     </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 

@@ -15,11 +15,13 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel.MainViewModel
+import timber.log.Timber
 
 class MealActivity : AppCompatActivity(R.layout.activity_meal) {
     private val mainViewModel: MainContract.ViewModel by viewModel<MainViewModel>()
     private lateinit var imageView: ImageView
     private lateinit var saveMealButton: Button
+    private lateinit var shownMeal: Meal
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +30,13 @@ class MealActivity : AppCompatActivity(R.layout.activity_meal) {
     }
 
     private fun init() {
-        val bundle :Bundle ?=intent.extras
-        bundle?.apply {
-            //Parcelable Data
-            val meal: Meal? = getParcelable("selectedMeal")
-            if (meal != null) {
-                mainViewModel.selectedMeal = meal
-            }
-        }
+        parseExtra()
         initUi()
         initListeners()
+    }
+
+    private fun parseExtra(){
+        shownMeal = intent.getSerializableExtra("meal") as Meal
     }
 
     private fun initUi() {
@@ -45,85 +44,33 @@ class MealActivity : AppCompatActivity(R.layout.activity_meal) {
         saveMealButton = findViewById(R.id.btnSaveMeal)
         Picasso
             .get()
-            .load(mainViewModel.selectedMeal.image)
+            .load(shownMeal.image)
             .into(imageView);
 
-        findViewById<TextView>(R.id.tvMealName).text = mainViewModel.selectedMeal.name
-        findViewById<TextView>(R.id.tvCategory).text = "Category:   " + mainViewModel.selectedMeal.category
-        findViewById<TextView>(R.id.tvArea).text = "Area:   " +  mainViewModel.selectedMeal.area
-        findViewById<TextView>(R.id.tvInstructions).text =  "Instructions:\n\n" +  mainViewModel.selectedMeal.instructions
+        findViewById<TextView>(R.id.tvMealName).text = shownMeal.name
+        findViewById<TextView>(R.id.tvCategory).text = "Category:   " + shownMeal.category
+        findViewById<TextView>(R.id.tvArea).text = "Area:   " +  shownMeal.area
+        findViewById<TextView>(R.id.tvInstructions).text =  "Instructions:\n\n" +  shownMeal.instructions
 
-        if(mainViewModel.selectedMeal.tags != "null" && mainViewModel.selectedMeal.tags.isNotEmpty())
-            findViewById<TextView>(R.id.tvTags).text = "Tags:   " + mainViewModel.selectedMeal.tags
+        if(shownMeal.tags != "null" && shownMeal.tags.isNotEmpty())
+            findViewById<TextView>(R.id.tvTags).text = "Tags:   " + shownMeal.tags
         else
             findViewById<TextView>(R.id.tvTags).text = "Tags Not available"
 
-        if(mainViewModel.selectedMeal.youtube != "null" && mainViewModel.selectedMeal.youtube.isNotEmpty())
-            findViewById<TextView>(R.id.tvVideoLink).text = "Youtube link:   " + mainViewModel.selectedMeal.youtube
+        if(shownMeal.youtube != "null" && shownMeal.youtube.isNotEmpty())
+            findViewById<TextView>(R.id.tvVideoLink).text = "Youtube link:   " + shownMeal.youtube
         else
             findViewById<TextView>(R.id.tvVideoLink).text = "Video link Not available"
 
         val builder = StringBuilder()
         builder.append("Ingredients and measures:\n\n")
-        if (mainViewModel.selectedMeal.ingredient1 != "null" && mainViewModel.selectedMeal.ingredient1.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient1).append(" : ").append(mainViewModel.selectedMeal.measure1).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient2 != "null" && mainViewModel.selectedMeal.ingredient2.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient2).append(" : ").append(mainViewModel.selectedMeal.measure2).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient3 != "null" && mainViewModel.selectedMeal.ingredient3.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient3).append(" : ").append(mainViewModel.selectedMeal.measure3).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient4 != "null" && mainViewModel.selectedMeal.ingredient4.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient4).append(" : ").append(mainViewModel.selectedMeal.measure4).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient5 != "null" && mainViewModel.selectedMeal.ingredient5.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient5).append(" : ").append(mainViewModel.selectedMeal.measure5).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient6 != "null" && mainViewModel.selectedMeal.ingredient6.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient6).append(" : ").append(mainViewModel.selectedMeal.measure6).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient7 != "null" && mainViewModel.selectedMeal.ingredient7.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient7).append(" : ").append(mainViewModel.selectedMeal.measure7).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient8 != "null" && mainViewModel.selectedMeal.ingredient8.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient8).append(" : ").append(mainViewModel.selectedMeal.measure8).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient9 != "null" && mainViewModel.selectedMeal.ingredient9.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient9).append(" : ").append(mainViewModel.selectedMeal.measure9).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient10 != "null" && mainViewModel.selectedMeal.ingredient10.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient10).append(" : ").append(mainViewModel.selectedMeal.measure10).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient11 != "null" && mainViewModel.selectedMeal.ingredient11.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient11).append(" : ").append(mainViewModel.selectedMeal.measure11).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient12 != "null" && mainViewModel.selectedMeal.ingredient12.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient12).append(" : ").append(mainViewModel.selectedMeal.measure12).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient13 != "null" && mainViewModel.selectedMeal.ingredient13.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient13).append(" : ").append(mainViewModel.selectedMeal.measure13).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient14 != "null" && mainViewModel.selectedMeal.ingredient14.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient14).append(" : ").append(mainViewModel.selectedMeal.measure14).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient15 != "null" && mainViewModel.selectedMeal.ingredient15.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient15).append(" : ").append(mainViewModel.selectedMeal.measure15).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient16 != "null" && mainViewModel.selectedMeal.ingredient16.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient16).append(" : ").append(mainViewModel.selectedMeal.measure16).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient17 != "null" && mainViewModel.selectedMeal.ingredient17.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient17).append(" : ").append(mainViewModel.selectedMeal.measure17).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient18 != "null" && mainViewModel.selectedMeal.ingredient18.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient18).append(" : ").append(mainViewModel.selectedMeal.measure18).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient19 != "null" && mainViewModel.selectedMeal.ingredient19.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient19).append(" : ").append(mainViewModel.selectedMeal.measure19).append("\n")
-        }
-        if (mainViewModel.selectedMeal.ingredient20 != "null" && mainViewModel.selectedMeal.ingredient20.isNotEmpty()) {
-            builder.append(mainViewModel.selectedMeal.ingredient20).append(" : ").append(mainViewModel.selectedMeal.measure20).append("\n")
+        for(i in shownMeal.ingredients.indices){
+            val ingredient = shownMeal.ingredients[i]
+            val measure = shownMeal.measures[i]
+
+//            Timber.e("JELO: " + shownMeal.name)
+            if (ingredient != null && ingredient.isNotEmpty())
+                builder.append(ingredient).append(" : ").append(measure).append("\n")
         }
 
         findViewById<TextView>(R.id.tvIngredientsAndMeasures).text = builder.toString()
@@ -132,7 +79,7 @@ class MealActivity : AppCompatActivity(R.layout.activity_meal) {
     private fun initListeners() {
         saveMealButton.setOnClickListener{
             val intent = Intent(this, SaveMealActivity::class.java)
-//            intent.putExtra("selectedMeal", meal)
+            intent.putExtra("meal", shownMeal)
             startActivity(intent)
             finish()
         }

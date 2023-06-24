@@ -4,6 +4,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.local.CategoryDataBase
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.local.MealDataBase
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.local.SavedMealDatabase
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.local.UserDataBase
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.remote.CategoryService
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.datasources.remote.MealService
@@ -20,7 +21,8 @@ val category_module = module {
     single<CategoryRepository> { CategoryRepositoryImpl(localDataSourceCategory = get(),
         remoteDataSourceCategory = get(),
         localDataSourceMeal = get(),
-        remoteDataSourceMeal = get()) }
+        remoteDataSourceMeal = get(),
+        localDataSourceSavedMeal = get()) }
 
     single { get<CategoryDataBase>().getCategoryDao() }
 
@@ -29,6 +31,9 @@ val category_module = module {
     single { get<MealDataBase>().getMealDao() }
 
     single<MealService> { create(retrofit = get()) }
+
+    single { get<SavedMealDatabase>().getSavedMealDao() }
+
 
     single<UserRepository> { UserRepositoryImpl(localDataSourceUser = get()) }
 

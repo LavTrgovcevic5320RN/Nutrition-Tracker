@@ -74,7 +74,7 @@ class SearchMealsFragment: Fragment(R.layout.fragment_search_meals) {
                 }else if(vrsta == "Ingredient"){
                     mainViewModel.getAllMealsByIngredient(filter)
                 }
-                Log.d("Main", it.toString())
+//                Log.d("Main", it.toString())
             }
         }
     }

@@ -11,4 +11,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profile_fragment_title">Profile</string>
+    <string name="dialogYes">Yes</string>
+    <string name="dialogNo">No</string>
+    <string name="saved_meals">Saved Meals</string>
+    <string name="statistics">Statistics</string>
+    <string name="profile">Profile</string>
+    <string name="meal_plan">Meal Plan</string>
+    <string name="info">Info</string>
 </resources>
