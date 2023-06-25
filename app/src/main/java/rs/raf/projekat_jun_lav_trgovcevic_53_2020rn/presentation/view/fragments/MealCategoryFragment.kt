@@ -12,8 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Category
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentMealCategoryBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.adapter.CategoryAdapter
@@ -22,7 +20,7 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel.MainV
 import timber.log.Timber
 
 class MealCategoryFragment : Fragment(R.layout.fragment_meal_category)  {
-    private val mainViewModel: MainContract.ViewModel by sharedViewModel<MainViewModel>()
+    val mainViewModel: MainContract.ViewModel by sharedViewModel<MainViewModel>()
     private var _binding: FragmentMealCategoryBinding? = null
     private val binding get() = _binding!!
 
@@ -54,7 +52,7 @@ class MealCategoryFragment : Fragment(R.layout.fragment_meal_category)  {
 
     private fun initRecycler() {
         binding.listRv.layoutManager = LinearLayoutManager(context)
-        adapter = CategoryAdapter(this)
+        adapter = CategoryAdapter(this, parentFragment)
         binding.listRv.adapter = adapter
     }
 
@@ -98,10 +96,6 @@ class MealCategoryFragment : Fragment(R.layout.fragment_meal_category)  {
         binding.inputEt.isVisible = !loading
         binding.listRv.isVisible = !loading
         binding.loadingPb.isVisible = loading
-    }
-
-    fun setSelectedCategory(category: Category){
-        mainViewModel.selectedCategory = category;
     }
 
     override fun onDestroyView() {

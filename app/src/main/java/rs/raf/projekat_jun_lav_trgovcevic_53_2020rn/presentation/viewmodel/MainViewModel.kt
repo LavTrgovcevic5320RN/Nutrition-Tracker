@@ -13,6 +13,7 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.repositories.UserReposi
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.*
 import timber.log.Timber
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class MainViewModel(
@@ -35,7 +36,7 @@ class MainViewModel(
         "null",
         "null"
     )
-    override var selectedCategory: Category = Category("1", "Beef", "https://www.themealdb.com/images/category/beef.png", "Beef is the culinary name for meat from cattle, particularly skeletal muscle. Humans have been eating beef since prehistoric times.[1] Beef is a source of high-quality protein and essential nutrients.[2]")
+    override var selectedCateg: MutableLiveData<Category> = MutableLiveData()
 
     private val subscriptions = CompositeDisposable()
     override val categoriesState: MutableLiveData<CategoriesState> = MutableLiveData()
@@ -358,7 +359,6 @@ class MainViewModel(
             )
         subscriptions.add(subscription)
     }
-
 
     override fun onCleared() {
         super.onCleared()

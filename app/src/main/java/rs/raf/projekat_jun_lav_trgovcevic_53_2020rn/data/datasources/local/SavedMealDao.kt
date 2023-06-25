@@ -4,6 +4,7 @@ import androidx.room.*
 import io.reactivex.Completable
 import io.reactivex.Observable
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.SavedMealEntity
+import java.util.Date
 
 @Dao
 abstract class SavedMealDao {
@@ -28,6 +29,9 @@ abstract class SavedMealDao {
 
     @Query("SELECT * FROM saved_meals WHERE name LIKE :name || '%'")
     abstract fun getAllByName(name: String): Observable<List<SavedMealEntity>>
+
+//    @Query("SELECT date, COUNT(*) as count FROM saved_meals WHERE date >= :aWeekAgo AND date <= :today GROUP BY date")
+//    abstract fun getSavedMealCounts(aWeekAgo: Date, today: Date): Observable<List<SavedMealEntity>>
 
 
 }

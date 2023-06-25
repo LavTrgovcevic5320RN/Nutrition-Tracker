@@ -24,7 +24,7 @@ class MainPagerAdapter(
         return when(position) {
             FRAGMENT_1 -> MealCategoryFragment()
             FRAGMENT_2 -> ListMealsFragment()
-            else -> InfoFragment()
+            else -> MoreInfoFragment()
         }
     }
 

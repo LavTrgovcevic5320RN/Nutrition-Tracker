@@ -42,14 +42,14 @@ class MainFragment : Fragment(R.layout.fragment_main){
         binding.viewPager.adapter =
             this.activity?.let {
                 MainPagerAdapter(
-                    it.supportFragmentManager,
-                    this.requireContext()
+                    childFragmentManager,
+                    this.context!!
                 )
             }
         binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 
-    fun openMeals(category: Category) {
+    fun openMeals() {
         binding.viewPager.setCurrentItem(MainPagerAdapter.FRAGMENT_2, false);
     }
 

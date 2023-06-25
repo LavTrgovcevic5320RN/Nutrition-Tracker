@@ -1,10 +1,12 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Category
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.SavedMeal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.*
+import java.util.Date
 
 interface MainContract {
 
@@ -16,7 +18,7 @@ interface MainContract {
         val saveMealState: LiveData<SaveMealState>
         val addDone: LiveData<AddUserState>
         var selectedMeal : Meal
-        var selectedCategory: Category
+        var selectedCateg: MutableLiveData<Category>
 //        var filterKeyword: String
 
 
@@ -37,6 +39,7 @@ interface MainContract {
         fun getAllSavedMeals()
         fun addSavedMeal(mealToSave: SavedMeal)
         fun getAllSavedMealsByName(name: String)
+
 
 
 //        fun getAllMealsFilterByArea()

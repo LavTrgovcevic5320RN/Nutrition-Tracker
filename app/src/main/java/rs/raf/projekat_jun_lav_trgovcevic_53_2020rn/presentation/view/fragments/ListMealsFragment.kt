@@ -44,15 +44,9 @@ class ListMealsFragment : Fragment(R.layout.fragment_list_meals) {
     }
 
     private fun init() {
-        initUi()
-        initObservers()
-        var sharedPref : SharedPreferences = activity!!.getPreferences(Context.MODE_PRIVATE)
-        val categoryName = sharedPref.getString("category", "ne postoji")
-    }
-
-    private fun initUi() {
         initRecycler()
         initListeners()
+        initObservers()
     }
 
     private fun initRecycler() {
@@ -61,18 +55,9 @@ class ListMealsFragment : Fragment(R.layout.fragment_list_meals) {
         binding.listMealRv.adapter = mealAdapter
     }
 
-//    override fun onStart() {
-//        Timber.e("USAOOOOOOOOOOOOOOOOOOOO  " + mainViewModel.selectedMeal.name)
-////        mainViewModel.getAllMealsFilterByCategory(mainViewModel.selectedCategory.name)
-//
-//        Timber.e("Categorija 25:" + mainViewModel.selectedCategory.name)
-//        super.onStart()
-//    }
-
     private fun initListeners() {
         binding.timeButtonGroup1.setOnSelectListener {
             val vrsta = it.text
-//            Log.d("Main", vrsta)
 
             binding.inputMealEt.doAfterTextChanged {
                 val filter = it.toString()
@@ -94,7 +79,6 @@ class ListMealsFragment : Fragment(R.layout.fragment_list_meals) {
 //                    binding.listMealRv.adapter = adapter
 //                    mainViewModel.getAllSavedMealsByName(filter)
                 }
-//                Log.d("Main", it.toString())
             }
         }
     }
@@ -105,13 +89,17 @@ class ListMealsFragment : Fragment(R.layout.fragment_list_meals) {
             renderState(it)
         })
 
-        mainViewModel.getAllMeals()
-        mainViewModel.fetchAllMeals()
+        mainViewModel.selectedCateg.observe(viewLifecycleOwner, Observer{
+            mainViewModel.getAllMealsFilterByCategory(it.name)
+        })
+
 
         mainViewModel.saveMealState.observe(viewLifecycleOwner, Observer {
             Timber.e(it.toString())
-
         })
+
+        mainViewModel.getAllMeals()
+        mainViewModel.fetchAllMeals()
     }
 
     private fun renderState(state: MealsState) {

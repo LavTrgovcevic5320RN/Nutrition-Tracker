@@ -10,7 +10,7 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.SavedMealEntity
 
 @Database(
     entities = [MealEntity::class, SavedMealEntity::class],
-    version = 2,
+    version = 3,
     exportSchema = false)
 @TypeConverters(StringListConverter::class, DateConvertor::class)
 abstract class SavedMealDatabase :  RoomDatabase() {

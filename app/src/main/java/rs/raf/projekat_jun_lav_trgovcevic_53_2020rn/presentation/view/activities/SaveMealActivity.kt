@@ -143,7 +143,7 @@ class SaveMealActivity : AppCompatActivity(R.layout.activity_save_meal) {
 
         var newMeal: SavedMeal
         if(photoTaken){
-            newMeal = SavedMeal(meal.id, meal.name, pathToRemember, meal.instructions, meal.youtube, meal.ingredients, meal.measures, meal.category, dateToSave, mealType )
+            newMeal = SavedMeal(meal.id, meal.name, pathToRemember, meal.instructions, meal.youtube, meal.ingredients, meal.measures, meal.category, dateToSave, mealType)
         }else{
             newMeal = SavedMeal(meal.id, meal.name, meal.image, meal.instructions, meal.youtube, meal.ingredients, meal.measures, meal.category, dateToSave, mealType )
         }

@@ -29,31 +29,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
+        childFragmentManager.beginTransaction().add(R.id.frameLayoutInfo, MoreInfoFragment()).commit()
     }
 
-    private fun init() {
-        initUi()
-
-    }
-
-    private fun initUi() {
-        binding.savedMealsImgView.setOnClickListener{
-            Timber.e("Usao u saved meals")
-//            val intent = Intent(context, ProfileActivity::class.java)
-//            startActivity(intent)
-        }
-
-        binding.mealPlanImgView.setOnClickListener{
-            Timber.e("Usao u meal plan")
-        }
-
-        binding.StatisticsImgView.setOnClickListener{
-            Timber.e("Usao u statistics")
-        }
-
-        binding.profileImgView.setOnClickListener{
-            Timber.e("Usao u profile")
-        }
-    }
 }
