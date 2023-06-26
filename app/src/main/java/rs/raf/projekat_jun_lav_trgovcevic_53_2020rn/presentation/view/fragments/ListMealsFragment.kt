@@ -98,8 +98,8 @@ class ListMealsFragment : Fragment(R.layout.fragment_list_meals) {
             Timber.e(it.toString())
         })
 
-        mainViewModel.getAllMeals()
-        mainViewModel.fetchAllMeals()
+//        mainViewModel.getAllMeals()
+//        mainViewModel.fetchAllMeals()
     }
 
     private fun renderState(state: MealsState) {
