@@ -43,31 +43,13 @@ class MealPlanFragment : Fragment(R.layout.fragment_meal_plan) {
 
     private fun init() {
         initObservers()
+        initView()
+    }
 
+    private fun initView() {
         binding.listMealRv.layoutManager = LinearLayoutManager(context)
         savedMealAdapter = SavedMealAdapter()
         binding.listMealRv.adapter = savedMealAdapter
-
-        val calendar = Calendar.getInstance()
-        calendar.firstDayOfWeek = Calendar.MONDAY
-
-        // Set the calendar to the current date
-        calendar.time = Date()
-
-        // Set the time to midnight
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-
-        // Find the start of the week
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.firstDayOfWeek)
-
-        // Get the start of the week
-        val startOfWeek = calendar.time
-
-        // Print the start of the week
-        Timber.e("DAN: " + startOfWeek)
     }
 
     private fun initObservers() {
