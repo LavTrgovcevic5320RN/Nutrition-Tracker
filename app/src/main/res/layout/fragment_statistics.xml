@@ -5,18 +5,20 @@
     android:gravity="center"
     android:padding="16dp">
 
+    <TextView
+        android:id="@+id/noDataTextView"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:text="Broj napravljenih jela u prošloj nedelji" />
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/meal_chart"
         android:layout_height="400dp"
         android:layout_width="350dp"
         />
 
-    <TextView
-        android:id="@+id/noDataTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Nema podataka za prikaz"
-        android:visibility="gone" />
 
 </LinearLayout>

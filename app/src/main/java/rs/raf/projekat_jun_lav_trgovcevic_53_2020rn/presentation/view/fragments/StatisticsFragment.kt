@@ -49,27 +49,34 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
     }
 
     private fun init() {
-//        initUi()
-//        initListeners()
         initObservers()
+//        val calendar = Calendar.getInstance()
+//        calendar.firstDayOfWeek = Calendar.MONDAY
+//
+//        // Set the calendar to the current date
+//        calendar.time = Date()
+//
+//        // Set the time to midnight
+//        calendar.set(Calendar.HOUR_OF_DAY, 0)
+//        calendar.set(Calendar.MINUTE, 0)
+//        calendar.set(Calendar.SECOND, 0)
+//        calendar.set(Calendar.MILLISECOND, 0)
+//
+//        // Find the start of the week
+//        calendar.set(Calendar.DAY_OF_WEEK, calendar.firstDayOfWeek)
+//
+//        // Get the start of the week
+//        val startOfWeek = calendar.time
+//
+//        // Print the start of the week
+//        Timber.e("DAN: " + startOfWeek)
     }
-//    private fun initUi() {
-//        val entries = loadStatisticsData()
-//        if (entries.isNotEmpty()) {
-//            setupChart(binding.mealChart, entries)
-//            binding.mealChart.visibility = View.VISIBLE
-//            binding.noDataTextView.visibility = View.GONE
-//        } else {
-//            binding.mealChart.visibility = View.GONE
-//            binding.noDataTextView.visibility = View.VISIBLE
-//        }
-//    }
+
     private fun initObservers() {
         mainViewModel.saveMealState.observe(viewLifecycleOwner){
             renderSavedMealState(it)
         }
         mainViewModel.getAllSavedMeals()
-//        Timber.e("Vreme: " + Calendar.getInstance().time.toString())
     }
 
     private fun renderSavedMealState(state: SaveMealState?) {
@@ -78,12 +85,12 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
                 val aWeekAgo = getStartOfPreviousWeek().time
                 val today = Calendar.getInstance().time
                 savedMeals = state.savedMeals.filter{
-                    it.date >= aWeekAgo && it.date <= today
+                    it.date > aWeekAgo && it.date <= today
                 }.sortedBy { it.date }
 
-                Timber.e("Velicina liste: " + savedMeals!!.size)
-                for(i in savedMeals!!)
-                    Timber.e("Filtrirano jelo: " + i.name)
+//                Timber.e("Velicina liste: " + savedMeals!!.size)
+//                for(i in savedMeals!!)
+//                    Timber.e("Filtrirano jelo: " + i.name)
 
                 generateChart()
             }
@@ -95,8 +102,8 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
 
     private fun generateChart() {
         val dataMap = savedMeals!!.groupBy { it.date }.mapValues { it.value.size }
-        println("Objekti")
-        println(dataMap)
+//        println("Objekti")
+//        println(dataMap)
 
         val entries = dataMap.entries.mapIndexed { index, entry ->
             BarEntry(index.toFloat(), entry.value.toFloat())
@@ -114,31 +121,27 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
         val format = SimpleDateFormat("EEE dd.", Locale.getDefault())
         val labels = dataMap.keys.map { format.format(it) }.toTypedArray()
 
-        Timber.e(labels.size.toString())
-        binding.mealChart.xAxis.setCenterAxisLabels(true)
+//        Timber.e(labels.size.toString())
         binding.mealChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
         binding.mealChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        binding.mealChart.xAxis.setDrawGridLines(false)
-        binding.mealChart.xAxis.textSize = 20f
         binding.mealChart.xAxis.labelRotationAngle = -45f
+        binding.mealChart.xAxis.textSize = 20f
         binding.mealChart.xAxis.setLabelCount(entries.size, false);
-        binding.mealChart.axisLeft.isEnabled = false
-        binding.mealChart.axisRight.isEnabled = false
-        binding.mealChart.description.isEnabled = false
-        binding.mealChart.legend.isEnabled = false
+        binding.mealChart.xAxis.setCenterAxisLabels(true)
+        binding.mealChart.xAxis.setDrawGridLines(false)
 
+
+        binding.mealChart.description.isEnabled = false
+        binding.mealChart.axisRight.isEnabled = false
+        binding.mealChart.axisLeft.isEnabled = false
+        binding.mealChart.legend.isEnabled = false
         binding.mealChart.setDrawBarShadow(false);
         binding.mealChart.setDrawValueAboveBar(true);
+        binding.mealChart.setFitBars(true)
 
         val barData = BarData(dataSet)
         binding.mealChart.data = barData
-        binding.mealChart.setFitBars(true)
         binding.mealChart.invalidate()
-
-
-//        val labelCount = labels.size
-//        val chartWidth = labelCount * 100f // Adjust the value as needed
-//        binding.mealChart.layoutParams.width = chartWidth.toInt()
     }
 
     private fun getStartOfPreviousWeek(): Calendar {
@@ -159,11 +162,5 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-}
-
-class IntegerAxisValueFormatter : ValueFormatter() {
-    override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-        return value.toInt().toString()
     }
 }
