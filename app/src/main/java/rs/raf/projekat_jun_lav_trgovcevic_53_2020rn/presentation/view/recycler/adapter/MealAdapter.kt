@@ -3,6 +3,7 @@ package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ListAdapter
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.LayoutItemMealBinding
@@ -12,7 +13,7 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.d
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.recycler.viewholder.MealViewHolder
 import timber.log.Timber
 
-class MealAdapter(private val fragment: ListMealsFragment) : ListAdapter<Meal, MealViewHolder>(MealDiffCallBack()) {
+class MealAdapter(private val fragment: Fragment) : ListAdapter<Meal, MealViewHolder>(MealDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
         val itemBinding = LayoutItemMealBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,7 +26,7 @@ class MealAdapter(private val fragment: ListMealsFragment) : ListAdapter<Meal, M
 
         holder.itemView.setOnClickListener {
             Timber.d(meal.name)
-            fragment.setSelectedMeal(meal)
+            (fragment as ListMealsFragment).setSelectedMeal(meal)
 
             val intent = Intent(fragment.context, MealActivity::class.java)
             intent.putExtra("meal", meal)

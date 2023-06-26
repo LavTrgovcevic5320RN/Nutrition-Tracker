@@ -1,0 +1,17 @@
+<resources>
+    <string-array name="days_array">
+        <item>Ponedeljak</item>
+        <item>Utorak</item>
+        <item>Sreda</item>
+        <item>Četvrtak</item>
+        <item>Petak</item>
+        <item>Subota</item>
+        <item>Nedelja</item>
+    </string-array>
+
+    <string-array name="meals_array">
+        <item>Doručak</item>
+        <item>Ručak</item>
+        <item>Večera</item>
+    </string-array>
+</resources>

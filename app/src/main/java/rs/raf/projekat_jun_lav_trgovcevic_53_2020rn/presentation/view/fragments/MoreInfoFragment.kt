@@ -43,6 +43,7 @@ class MoreInfoFragment : Fragment(R.layout.fragment_more_info) {
 
         binding.mealPlanImgView.setOnClickListener{
             Timber.e("Usao u meal plan")
+            parentFragment!!.parentFragmentManager.beginTransaction().replace(R.id.frameLayoutMain, MealPlanFragment()).addToBackStack("mealPlanFragment").commit()
         }
 
         binding.StatisticsImgView.setOnClickListener{
