@@ -52,6 +52,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             val editor = sharedPreferences.edit()
             editor.putBoolean("isLoggedIn", false)
             editor.apply()
+            requireActivity().supportFragmentManager.popBackStack();
         }
     }
 

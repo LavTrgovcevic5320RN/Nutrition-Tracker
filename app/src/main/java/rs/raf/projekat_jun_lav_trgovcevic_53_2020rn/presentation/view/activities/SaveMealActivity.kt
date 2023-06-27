@@ -74,7 +74,7 @@ class SaveMealActivity : AppCompatActivity(R.layout.activity_save_meal) {
             .load(meal.image)
             .into(binding.mealImageView);
 
-        binding. mealNameTextView.text = meal.name
+        binding.mealNameTextView.text = meal.name
     }
 
     private fun initDialog(){
@@ -150,7 +150,6 @@ class SaveMealActivity : AppCompatActivity(R.layout.activity_save_meal) {
 
         Timber.e(newMeal.id)
         mainViewModel.addSavedMeal(newMeal)
-        Toast.makeText(this, "Jelo uspešno sačuvano u meni.", Toast.LENGTH_SHORT).show()
 //        finish()
     }
 
