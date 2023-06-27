@@ -10,18 +10,18 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.ActivityMainBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments.LoginFragment
 import timber.log.Timber
 
 class SplashActivity : AppCompatActivity() {
-
+    private lateinit var binding: ActivityMainBinding
     private val splashDuration: Long = 3000
-    private lateinit var imageView: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
-        imageView = findViewById(R.id.splash_image)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val isLoggedIn = checkIfUserLoggedIn()
 
@@ -30,7 +30,6 @@ class SplashActivity : AppCompatActivity() {
             startMainActivity()
         } else {
             Timber.d("Nije ulogovan")
-
             startLoginActivity()
         }
     }

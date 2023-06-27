@@ -14,8 +14,7 @@ import org.koin.androidx.viewmodel.compat.SharedViewModelCompat.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.ActivityLoginBinding
-import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentMealCategoryBinding
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.*
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.CategoriesState
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.UsersState
@@ -26,25 +25,13 @@ class LoginActivity : AppCompatActivity() {
     private var _binding: ActivityLoginBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var usernameEditText: EditText
-    private lateinit var passwordEditText: EditText
-    private lateinit var loginButton: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        _binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        usernameEditText = findViewById(R.id.usernameEditText)
-        passwordEditText = findViewById(R.id.passwordEditText)
-        loginButton = findViewById(R.id.loginButton)
-
-        loginButton.setOnClickListener {
-            val username = usernameEditText.text.toString()
-            val password = passwordEditText.text.toString()
-
-
-
-            if (password.length >= 4) {
+        binding.loginButton.setOnClickListener {
+            if (binding.passwordEditText.length() >= 4) {
                 startMainActivity()
             } else {
                 Toast.makeText(this, "Password must be at least 4 characters long", Toast.LENGTH_SHORT).show()
@@ -70,5 +57,4 @@ class LoginActivity : AppCompatActivity() {
         super.onDestroy()
         _binding = null
     }
-
 }

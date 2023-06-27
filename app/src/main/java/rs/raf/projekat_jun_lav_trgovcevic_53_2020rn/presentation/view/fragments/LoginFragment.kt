@@ -1,5 +1,6 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,15 +10,24 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.SavedMeal
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.User
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.ActivityLoginBinding
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentStatisticsBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.activities.MainActivity
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.SaveMealState
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.UsersState
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel.MainViewModel
 import timber.log.Timber
+import java.util.*
 
 class LoginFragment : Fragment(R.layout.activity_login){
     private val mainViewModel: MainContract.ViewModel by sharedViewModel<MainViewModel>()
     private var _binding: ActivityLoginBinding? = null
     private val binding get() = _binding!!
+    private var users: List<User>? = null
+    private lateinit var titleName: String
 
 //    private lateinit var usernameEditText: EditText
 //    private lateinit var passwordEditText: EditText
@@ -39,17 +49,13 @@ class LoginFragment : Fragment(R.layout.activity_login){
 
     private fun init() {
         initUi()
-        Timber.e("USAOOOOOOOOOOO")
 
         binding.loginButton.setOnClickListener {
             val username = binding.usernameEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            val users = mainViewModel.getUsersByName(username);
-
-            Timber.e(users.toString())
-
             if (password.length >= 4) {
+                saveLoginStatus()
                 startMainActivity()
             } else {
                 Toast.makeText(context, "Password must be at least 4 characters long", Toast.LENGTH_SHORT).show()
@@ -63,10 +69,22 @@ class LoginFragment : Fragment(R.layout.activity_login){
 
     private fun initRecycler() {
         mainViewModel.usersState.observe(this, Observer {
+            renderUserState(it)
             Timber.e(it.toString())
         })
 
         mainViewModel.getAllUsers()
+    }
+
+    private fun renderUserState(state: UsersState?) {
+        when(state){
+            is UsersState.Success -> {
+                users = state.users
+            }
+            is UsersState.Error -> {
+                Toast.makeText(activity, state.message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun startMainActivity() {
@@ -76,17 +94,22 @@ class LoginFragment : Fragment(R.layout.activity_login){
     }
 
     private fun saveLoginStatus() {
-//        val sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//        editor.putBoolean("isLoggedIn", true)
-//        editor.apply()
+        val sharedPreferences = requireActivity().getSharedPreferences("login", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", true)
+        editor.apply()
     }
 
-
-
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (requireActivity() as MainActivity).supportActionBar!!.title = titleName
         _binding = null
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        titleName = (requireActivity() as MainActivity).supportActionBar!!.title.toString()
+        (requireActivity() as MainActivity).supportActionBar!!.title = "Statistika"
     }
 
 }

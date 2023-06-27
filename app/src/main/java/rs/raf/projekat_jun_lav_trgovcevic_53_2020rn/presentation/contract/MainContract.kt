@@ -6,7 +6,6 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Category
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.Meal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.SavedMeal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.*
-import java.util.Date
 
 interface MainContract {
 

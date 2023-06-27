@@ -10,5 +10,4 @@ interface UserRepository {
     fun getAllByName(name: String): Observable<List<User>>
     fun getAllByNameAndPassword(name: String, password: String): Observable<List<User>>
     fun insert(user: User): Completable
-
 }

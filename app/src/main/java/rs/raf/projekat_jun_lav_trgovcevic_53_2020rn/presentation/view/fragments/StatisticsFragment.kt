@@ -52,26 +52,6 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
 
     private fun init() {
         initObservers()
-//        val calendar = Calendar.getInstance()
-//        calendar.firstDayOfWeek = Calendar.MONDAY
-//
-//        // Set the calendar to the current date
-//        calendar.time = Date()
-//
-//        // Set the time to midnight
-//        calendar.set(Calendar.HOUR_OF_DAY, 0)
-//        calendar.set(Calendar.MINUTE, 0)
-//        calendar.set(Calendar.SECOND, 0)
-//        calendar.set(Calendar.MILLISECOND, 0)
-//
-//        // Find the start of the week
-//        calendar.set(Calendar.DAY_OF_WEEK, calendar.firstDayOfWeek)
-//
-//        // Get the start of the week
-//        val startOfWeek = calendar.time
-//
-//        // Print the start of the week
-//        Timber.e("DAN: " + startOfWeek)
     }
 
     private fun initObservers() {
@@ -90,10 +70,6 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
                     it.date > aWeekAgo && it.date <= today
                 }.sortedBy { it.date }
 
-//                Timber.e("Velicina liste: " + savedMeals!!.size)
-//                for(i in savedMeals!!)
-//                    Timber.e("Filtrirano jelo: " + i.name)
-
                 generateChart()
             }
             is SaveMealState.Error -> {
@@ -104,8 +80,6 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
 
     private fun generateChart() {
         val dataMap = savedMeals!!.groupBy { it.date }.mapValues { it.value.size }
-//        println("Objekti")
-//        println(dataMap)
 
         val entries = dataMap.entries.mapIndexed { index, entry ->
             BarEntry(index.toFloat(), entry.value.toFloat())
@@ -130,7 +104,6 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
         binding.mealChart.xAxis.setLabelCount(entries.size, false);
         binding.mealChart.xAxis.setCenterAxisLabels(true)
         binding.mealChart.xAxis.setDrawGridLines(false)
-
 
         binding.mealChart.description.isEnabled = false
         binding.mealChart.axisRight.isEnabled = false

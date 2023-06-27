@@ -2,7 +2,6 @@ package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -95,7 +94,7 @@ class MainViewModel(
                 }
             )
 
-        val user = User("1", "lavina", "lavina")
+        val user = User("1", "lavina", "lavina", false)
         val subscription3 = userRepository
             .insert(user)
             .subscribeOn(Schedulers.io())
@@ -250,43 +249,6 @@ class MainViewModel(
             )
         subscriptions.add(subscription)
     }
-
-//    override lateinit var filterKeyword: String
-
-//    override fun getAllMealsByIngredient(ingredient: String){
-//        val subscription = Single.just(mealsState.value)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(
-//                { fetchedMealsState ->
-//                    val fetchedMeals = fetchedMealsState as? MealsState.Success
-//                    if (fetchedMeals != null) {
-//                        val filteredFetchedMeals = if (filterKeyword != null && filterKeyword!!.isNotBlank()) {
-//                            fetchedMeals.meals.filter { meal ->
-//                                meal.ingredients.any { mealIngredient ->
-//                                    mealIngredient != null && mealIngredient.isNotBlank() && mealIngredient.contains(filterKeyword!!, ignoreCase = true)
-//                                }
-//                            }
-//                        } else {
-//                            fetchedMeals.meals // No filter applied
-//                        }
-//
-//                        for (i in filteredFetchedMeals) {
-//                            Timber.e("Jelo: $i")
-//                        }
-//
-//                        mealsState.value = MealsState.Success(filteredFetchedMeals)
-//                    } else {
-//                        mealsState.value = fetchedMealsState
-//                    }
-//                },
-//                {
-//                    mealsState.value = MealsState.Error("Error happened while fetching data from db")
-//                    Timber.e(it)
-//                }
-//            )
-//        subscriptions.add(subscription)
-//    }
 
     override fun getAllMealsByIngredient(ingredient: String){
         publishSubjectMeal.onNext(ingredient)

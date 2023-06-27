@@ -48,15 +48,16 @@ class MoreInfoFragment : Fragment(R.layout.fragment_more_info) {
 
         binding.StatisticsImgView.setOnClickListener{
             Timber.e("Usao u statistics")
-            for(i in  parentFragment!!.parentFragmentManager.fragments){
-                Timber.e(i.toString())
-            }
+//            for(i in  parentFragment!!.parentFragmentManager.fragments){
+//                Timber.e(i.toString())
+//            }
             parentFragment!!.parentFragmentManager.beginTransaction().replace(R.id.frameLayoutMain, StatisticsFragment()).addToBackStack("statisticsFragment").commit()
 //            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayoutMain, StatisticsFragment()).addToBackStack("statisticsFragment").commit()    I ovaj nacin isto radi
         }
 
         binding.profileImgView.setOnClickListener{
             Timber.e("Usao u profile")
+            parentFragment!!.parentFragmentManager.beginTransaction().replace(R.id.frameLayoutMain, ProfileFragment()).addToBackStack("profileFragment").commit()
         }
     }
 }

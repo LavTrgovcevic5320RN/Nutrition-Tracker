@@ -15,7 +15,7 @@ class UserRepositoryImpl(
             .getAll()
             .map {
                 it.map {
-                    User(it.id, it.name, it.password)
+                    User(it.id, it.name, it.password, it.loggedIn)
                 }
             }
     }
@@ -25,7 +25,7 @@ class UserRepositoryImpl(
             .getByName(name)
             .map {
                 it.map {
-                    User(it.id, it.name, it.password)
+                    User(it.id, it.name, it.password, it.loggedIn)
                 }
             }
     }
@@ -35,14 +35,15 @@ class UserRepositoryImpl(
             .getByName(name)
             .map {
                 it.map {
-                    User(it.id, it.name, it.password)
+                    User(it.id, it.name, it.password, it.loggedIn)
                 }
             }
     }
 
     override fun insert(user: User): Completable {
-        val userEntity = UserEntity(user.id, user.name, user.password)
+        val userEntity = UserEntity(user.id, user.name, user.password, user.loggedIn)
         return localDataSourceUser
             .insert(userEntity)
     }
+
 }

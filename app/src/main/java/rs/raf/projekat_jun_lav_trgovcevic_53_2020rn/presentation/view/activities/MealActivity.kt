@@ -68,7 +68,6 @@ class MealActivity : AppCompatActivity(R.layout.activity_meal) {
             val ingredient = shownMeal.ingredients[i]
             val measure = shownMeal.measures[i]
 
-//            Timber.e("JELO: " + shownMeal.name)
             if (ingredient != null && ingredient.isNotEmpty())
                 builder.append(ingredient).append(" : ").append(measure).append("\n")
         }
