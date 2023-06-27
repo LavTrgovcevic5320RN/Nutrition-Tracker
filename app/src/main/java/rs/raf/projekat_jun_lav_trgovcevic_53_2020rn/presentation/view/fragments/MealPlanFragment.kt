@@ -1,13 +1,14 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments
 
-import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -29,7 +30,7 @@ class MealPlanFragment : Fragment(R.layout.fragment_meal_plan) {
     private var savedMeals: List<SavedMeal>? = null
     private lateinit var savedMealAdapter: SavedMealAdapter
     private var mapOfSavedMeals: MutableMap<String, MutableList<SavedMeal>> = mutableMapOf()
-    private lateinit var clickedSavedMeal: SavedMeal
+    private lateinit var selectedMeal: SavedMeal
     private lateinit var titleName: String
 
     override fun onCreateView(
@@ -65,56 +66,112 @@ class MealPlanFragment : Fragment(R.layout.fragment_meal_plan) {
     }
 
     private fun initListeners() {
-        binding.daySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val selectedMealType = parent.getItemAtPosition(position).toString()
-//                mainViewModel.getAllSavedMealsByType(selectedMealType)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Code to perform some action when nothing is selected
-            }
-        }
-
-        binding.planButton.setOnClickListener{
-            val selectedDay: String = binding.daySpinner.selectedItem.toString()
+        binding.addButton.setOnClickListener{
+//            val selectedDay: String = binding.daySpinner.selectedItem.toString()
+            val selectedDay = binding.planTitle.text.toString()
             val selectedMealType: String = binding.mealSpinner.selectedItem.toString()
             val mealsForSelectedDay = mapOfSavedMeals[selectedDay]
 
-            val isMealSaved = mealsForSelectedDay?.any {it.name == clickedSavedMeal.name} == true
-            if (isMealSaved) {
-                Toast.makeText(requireContext(), "The meal has already been added for: $selectedDay to the plan for: $selectedMealType ,please choose a different meal type or a different day", Toast.LENGTH_SHORT).show()
-            } else {
-                if(clickedSavedMeal.type != selectedMealType) {
-                    Toast.makeText(requireContext(), "The selected meal isnt the same type as selected: $selectedMealType, please choose an suitable meal for this type", Toast.LENGTH_SHORT).show()
-                }else{
-                    Timber.e("Ulazio")
+            if(::selectedMeal.isInitialized ){
+                if(selectedMeal.type == selectedMealType) {
                     if (mealsForSelectedDay == null) {
-                        mapOfSavedMeals[selectedDay] = mutableListOf(clickedSavedMeal)
-                        Toast.makeText(requireContext(), "Added meal: ${clickedSavedMeal.name}", Toast.LENGTH_SHORT).show()
+                        mapOfSavedMeals[selectedDay] = mutableListOf(selectedMeal)
                     } else {
-                        val hasSameTypeMeal = mealsForSelectedDay.any { it.type == selectedMealType }
-                        if (hasSameTypeMeal) {
-                            Toast.makeText(requireContext(), "You already chose a meal for this day: $selectedDay and meal type: $selectedMealType", Toast.LENGTH_SHORT).show()
+                        if (!mealsForSelectedDay.contains(selectedMeal) and !mealsForSelectedDay.any { it.type == selectedMealType }) {
+                            mapOfSavedMeals[selectedDay]!!.add(selectedMeal)
                         } else {
-                            mealsForSelectedDay.add(clickedSavedMeal)
-                            Toast.makeText(requireContext(), "Added meal: ${clickedSavedMeal.name}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Jelo već postoji u mapi ili obrok je već izabran za ovaj dan.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
+                    }
+                    Timber.e("----------------------------------------")
+                    for ((day, meals) in mapOfSavedMeals) {
+                        Timber.e(day)
+                        for (meal in meals) {
+                            Timber.e(meal.name)
+                        }
+                    }
+                }else{
+                    Toast.makeText(requireContext(), "Izabrano jelo nema isti tip obroka kao izabrani obrok", Toast.LENGTH_SHORT).show()
+                }
+            }else{
+                Toast.makeText(requireContext(), "Izaberite neko jelo", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.sendButton.setOnClickListener {
+            val daysOfWeek = listOf("Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota", "Nedelja")
+            val currentIndex = daysOfWeek.indexOf(binding.planTitle.text)
+            val nextIndex = currentIndex + 1
+
+            if (currentIndex < daysOfWeek.size - 1) {
+                val currentDay = daysOfWeek[currentIndex]
+
+                if (mapOfSavedMeals.containsKey(currentDay)) {
+                    val nextDay = daysOfWeek[nextIndex]
+                    binding.planTitle.text = nextDay
+
+                    if (daysOfWeek[currentIndex] == "Nedelja") {
+                        Toast.makeText(requireContext(), "Jela su uspešno dodata za sve dane u nedelji. Možete poslati plan.", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Morate dodati jelo za $currentDay pre nego što pređete na sledeći dan.", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+//                Timber.e("Usao")
+                binding.sendButton.text = "Pošalji jelo"
+                binding.email.visibility = View.VISIBLE
+
+                val email = binding.email.text.toString()
+                if(binding.email.visibility == View.VISIBLE){
+                    if (isValidEmail(email)) {
+                        val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                            data = Uri.parse("mailto:")
+                            putExtra(Intent.EXTRA_SUBJECT, "Plan obroka")
+
+                            // Sastavljanje tela mejla
+                            val emailBody = buildEmailBody()
+                            putExtra(Intent.EXTRA_TEXT, emailBody)
+
+                            // Dodavanje linka koji otvara aplikaciju
+                            val appLink = "myapp://open"
+                            putExtra(Intent.EXTRA_HTML_TEXT, "$emailBody<br><a href=\"$appLink\">Otvori aplikaciju</a>")
+                        }
+
+                        if (emailIntent.resolveActivity(requireActivity().packageManager) != null) {
+                            startActivity(emailIntent)
+                        } else {
+                            Toast.makeText(requireContext(), "Nije pronađena aplikacija za slanje mejla.", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "Nije validna email adresa.", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
-
-//            Timber.e("----------------------------------------")
-//            for((day, meals) in mapOfSavedMeals){
-//                Timber.e(day)
-//                for(meal in meals){
-//                    Timber.e(meal.name)
-//                }
-//            }
-
-
         }
     }
+
+    private fun buildEmailBody(): String {
+        val stringBuilder = StringBuilder()
+
+        for ((day, meals) in mapOfSavedMeals) {
+            stringBuilder.append("$day:\n")
+
+            for (meal in meals) {
+                stringBuilder.append("Obrok: ${meal.type}\n")
+                stringBuilder.append("Jelo: ${meal.name}\n")
+                stringBuilder.append("----------\n")
+            }
+
+            stringBuilder.append("\n")
+        }
+
+        return stringBuilder.toString()
+    }
+
 
     private fun initObservers() {
         mainViewModel.saveMealState.observe(viewLifecycleOwner){
@@ -135,13 +192,18 @@ class MealPlanFragment : Fragment(R.layout.fragment_meal_plan) {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        init()
+    private fun isValidEmail(email: String): Boolean {
+        val pattern = Patterns.EMAIL_ADDRESS
+        return pattern.matcher(email).matches()
     }
 
     fun setClickedMeal(clickedMeal: SavedMeal){
-        clickedSavedMeal = clickedMeal
+        selectedMeal = clickedMeal
+    }
+
+    override fun onResume() {
+        super.onResume()
+        init()
     }
 
     override fun onDestroyView() {
