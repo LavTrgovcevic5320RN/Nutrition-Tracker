@@ -360,6 +360,23 @@ class MainViewModel(
         subscriptions.add(subscription)
     }
 
+    override fun getAllSavedMealsByType(name: String) {
+        val subscription = categoryRepository
+            .getAllSavedMealsByName(name)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    saveMealState.value = SaveMealState.Success(it)
+                },
+                {
+                    saveMealState.value = SaveMealState.Error("Error happened while fetching data from db")
+                    Timber.e(it)
+                }
+            )
+        subscriptions.add(subscription)
+    }
+
     override fun onCleared() {
         super.onCleared()
         subscriptions.dispose()

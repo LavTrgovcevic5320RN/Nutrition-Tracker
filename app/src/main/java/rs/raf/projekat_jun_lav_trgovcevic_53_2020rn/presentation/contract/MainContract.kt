@@ -39,7 +39,7 @@ interface MainContract {
         fun getAllSavedMeals()
         fun addSavedMeal(mealToSave: SavedMeal)
         fun getAllSavedMealsByName(name: String)
-
+        fun getAllSavedMealsByType(selectedMealType: String)
 
 
 //        fun getAllMealsFilterByArea()

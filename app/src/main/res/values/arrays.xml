@@ -10,8 +10,9 @@
     </string-array>
 
     <string-array name="meals_array">
-        <item>Doručak</item>
-        <item>Ručak</item>
-        <item>Večera</item>
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Snack</item>
+        <item>Dinner</item>
     </string-array>
 </resources>

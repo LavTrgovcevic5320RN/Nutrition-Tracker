@@ -21,6 +21,7 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.R
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.SavedMeal
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.databinding.FragmentStatisticsBinding
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.contract.MainContract
+import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.activities.MainActivity
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.states.SaveMealState
 import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.viewmodel.MainViewModel
 import timber.log.Timber
@@ -33,6 +34,7 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
     private var _binding: FragmentStatisticsBinding? = null
     private val binding get() = _binding!!
     private var savedMeals: List<SavedMeal>? = null
+    private lateinit var titleName: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -121,7 +123,6 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
         val format = SimpleDateFormat("EEE dd.", Locale.getDefault())
         val labels = dataMap.keys.map { format.format(it) }.toTypedArray()
 
-//        Timber.e(labels.size.toString())
         binding.mealChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
         binding.mealChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         binding.mealChart.xAxis.labelRotationAngle = -45f
@@ -161,6 +162,13 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        (requireActivity() as MainActivity).supportActionBar!!.title = titleName
         _binding = null
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        titleName = (requireActivity() as MainActivity).supportActionBar!!.title.toString()
+        (requireActivity() as MainActivity).supportActionBar!!.title = "Statistika"
     }
 }

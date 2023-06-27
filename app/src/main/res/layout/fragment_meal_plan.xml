@@ -6,11 +6,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Plan ishrane"
+        android:text="Ponedeljak"
         android:textSize="24sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,6 +68,7 @@
         android:paddingTop="16dp" />
 
     <Button
+        android:id="@+id/planButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dodaj jelo"
