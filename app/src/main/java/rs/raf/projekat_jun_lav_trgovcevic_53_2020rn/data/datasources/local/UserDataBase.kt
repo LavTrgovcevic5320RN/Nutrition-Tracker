@@ -7,7 +7,7 @@ import rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.data.models.UserEntity
 
 @Database(
     entities = [UserEntity::class],
-    version = 3,
+    version = 4,
     exportSchema = false)
 @TypeConverters()
 abstract class UserDataBase : RoomDatabase() {
