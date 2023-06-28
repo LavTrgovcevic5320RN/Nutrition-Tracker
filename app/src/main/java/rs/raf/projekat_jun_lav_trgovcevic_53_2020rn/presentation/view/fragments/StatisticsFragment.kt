@@ -105,7 +105,7 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
         binding.mealChart.xAxis.labelRotationAngle = 45f;
 
         binding.mealChart.xAxis.textSize = 20f
-        binding.mealChart.xAxis.setGranularity(1f);
+        binding.mealChart.xAxis.granularity = 1f;
         binding.mealChart.rendererXAxis.paintAxisLabels.textAlign = Paint.Align.LEFT;
         binding.mealChart.xAxis.setDrawGridLines(false)
 
