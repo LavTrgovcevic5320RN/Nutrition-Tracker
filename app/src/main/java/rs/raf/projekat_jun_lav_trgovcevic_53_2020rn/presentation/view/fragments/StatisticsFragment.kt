@@ -1,5 +1,6 @@
 package rs.raf.projekat_jun_lav_trgovcevic_53_2020rn.presentation.view.fragments
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -96,13 +97,16 @@ class StatisticsFragment : Fragment(R.layout.fragment_statistics) {
 
         val format = SimpleDateFormat("EEE dd.", Locale.getDefault())
         val labels = dataMap.keys.map { format.format(it) }.toTypedArray()
+        val myArray = arrayListOf<String>()
+        myArray.addAll(dataMap.keys.map { format.format(it) }.toTypedArray())
 
-        binding.mealChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        binding.mealChart.xAxis.valueFormatter = IndexAxisValueFormatter(myArray)
         binding.mealChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        binding.mealChart.xAxis.labelRotationAngle = -45f
+        binding.mealChart.xAxis.labelRotationAngle = 45f;
+
         binding.mealChart.xAxis.textSize = 20f
-        binding.mealChart.xAxis.setLabelCount(entries.size, false);
-        binding.mealChart.xAxis.setCenterAxisLabels(true)
+        binding.mealChart.xAxis.setGranularity(1f);
+        binding.mealChart.rendererXAxis.paintAxisLabels.textAlign = Paint.Align.LEFT;
         binding.mealChart.xAxis.setDrawGridLines(false)
 
         binding.mealChart.description.isEnabled = false
